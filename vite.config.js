@@ -3,7 +3,7 @@ import path from 'path';
 
 export default defineConfig({
   root: './',      // your project root
-  base: './',      // base path
+  base: './main_es',      // base path
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'), // optional, only if you use a src folder
