@@ -1,0 +1,275 @@
+
+<style>
+#employeeScanReader_F, #videoXSF { 
+  width: 100%; 
+  max-width: 400px; 
+  margin: 20px auto; 
+  border: 2px solid #0d6efd; 
+  border-radius: 8px; 
+  display: none; 
+}
+#canvas { display:none; }
+#photoResult, #allData { margin-top: 20px; text-align:center; }
+.capture-box { 
+  display: inline-block; 
+  background: #fff; 
+  border: 1px solid #0d6efd; 
+  border-radius: 8px; 
+  padding: 10px; 
+  margin: 10px; 
+  width: 220px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.capture-box img { 
+  max-width: 200px; 
+  border-radius: 5px; 
+  display: block; 
+  margin: 5px auto; 
+}
+#scanMessage { font-weight: bold; color:red; }
+</style>
+</head>
+<body>
+
+<div class="container my-4 text-center" style="margin-bottom: 200px;">
+  <div id="container-restriction-fxt">
+    <button id="openQRBtn" class="btn btn-primary fs-5" disabled>Open QR Scan</button>
+    <button id="closeQRBtn" class="btn btn-danger fs-5" style="display:none;">Close QR Scan</button>
+
+    <div id="employeeScanReader_F"></div>
+
+    <div class="my-3">
+      <div id="scanMessage" class="fs-5 mt-2 mb-1"></div>
+      <select id="loginLogoutSelect" class="form-select d-inline w-auto fs-5 fw-bold text-danger">
+        <option value="">SELECT</option>
+        <option value="LOGIN">LOGIN</option>
+        <option value="LOGOUT">LOGOUT</option>
+      </select>
+      <select id="ampmSelect" class="form-select d-inline w-auto fs-5 fw-bold text-danger">
+        <option value="">SELECT</option>
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+
+    <video id="videoXSF" autoplay muted playsinline></video>
+    <canvas id="canvas"></canvas>
+
+    <div id="photoResult"></div>
+
+    <button id="submitAllBtn" class="btn btn-success fs-5 mt-3">Submit All Captures</button>
+    <button id="showAllDataBtn" class="btn btn-secondary fs-5 mt-3">Show All Offline Captures</button>
+    <div id="allData"></div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+
+
+  let qrScanner = null;
+  let faceStream = null;
+
+  // =========================
+  // SPEECH + TOAST
+  // =========================
+  function speakMessage(msg) { if(!msg) return; const utter=new SpeechSynthesisUtterance(msg); utter.lang='en-US'; utter.rate=1; utter.pitch=1; speechSynthesis.speak(utter);}
+  function toastSuccess(msg){ iziToast.success({title:'Success',message:msg,position:'topRight'}); speakMessage(msg);}
+  function toastError(msg){ iziToast.error({title:'Error',message:msg,position:'topRight'}); speakMessage(msg);}
+  function toastWarning(msg){ iziToast.warning({title:'Warning',message:msg,position:'topRight'}); speakMessage(msg);}
+
+  // =========================
+  // LOCAL STORAGE
+  // =========================
+  function loadSavedData(){ return JSON.parse(localStorage.getItem('qrFaceData') || '[]'); }
+  function saveData(data){ localStorage.setItem('qrFaceData', JSON.stringify(data)); }
+
+  // =========================
+  // PHILIPPINE TIME
+  // =========================
+  function getPHTime(){ const now=new Date(); const utc=now.getTime()+now.getTimezoneOffset()*60000; return new Date(utc+8*60*60*1000);}
+  function formatPHTime(){ const d=getPHTime(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');}
+
+  // =========================
+  // LOGIN/LOGOUT RULES
+  // =========================
+  function checkRules(){
+    const action=$("#loginLogoutSelect").val(); const period=$("#ampmSelect").val();
+    if(!action || !period){ $("#scanMessage").text("Please select LOGIN/LOGOUT and AM/PM"); return false; }
+    const now=getPHTime(); const h=now.getHours(), m=now.getMinutes(); let msg="", allow=true;
+    if(period==='AM'){ if(action==='LOGIN' && (h<6||(h===6 && m<30)||h>=9)){ allow=false; msg="AM LOGIN allowed 6:30–9:00"; } if(action==='LOGOUT'){ allow=false; msg="12 PM LOGOUT only"; } }
+    if(period==='PM'){ if(action==='LOGIN' && ((h===12&&m<30)||h>=14)){ allow=false; msg="PM LOGIN allowed 12:30–2:00"; } if(action==='LOGOUT' && h<18){ allow=false; msg="PM LOGOUT allowed after 6:00 PM"; } }
+    $("#scanMessage").text(msg); return allow;
+  }
+
+  setInterval(()=>{ $("#openQRBtn").prop("disabled",!checkRules()); },1000);
+
+  // =========================
+  // QR SCANNER
+  // =========================
+  $("#openQRBtn").click(()=>{ if(checkRules()) startQRScanner(); });
+  $("#closeQRBtn").click(stopQRScanner);
+
+  function startQRScanner(){
+    $("#employeeScanReader_F").show(); $("#openQRBtn").hide(); $("#closeQRBtn").show(); $("#photoResult").html('');
+    qrScanner=new Html5Qrcode("employeeScanReader_F");
+    qrScanner.start(
+      {facingMode:"environment"},
+      {fps:10, qrbox:250},
+      qrText=>{ stopQRScanner().then(()=>startFaceCapture(qrText)); }
+    ).catch(()=>toastError("Camera permission denied"));
+  }
+
+  function stopQRScanner(){ return new Promise(resolve=>{ if(!qrScanner) return resolve(); qrScanner.stop().then(()=>{ qrScanner.clear(); qrScanner=null; $("#employeeScanReader_F").hide(); $("#openQRBtn").show(); $("#closeQRBtn").hide(); resolve(); }); }); }
+
+  // =========================
+  // FACE-API MODEL LOADING
+  // =========================
+  const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.0.2/model/';
+  async function loadFaceModels(){
+    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+    await faceapi.nets.faceLandmark68TinyNet.loadFromUri(MODEL_URL);
+    console.log("Face-api models loaded");
+  }
+  loadFaceModels();
+
+  // =========================
+  // FACE CAPTURE WITH BLINK
+  // =========================
+  async function startFaceCapture(qr){
+    const video=$("#videoXSF")[0];
+    const canvas=$("#canvas")[0];
+    const ctx=canvas.getContext("2d");
+    $("#videoXSF").show();
+
+    try{ faceStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}}); video.srcObject=faceStream; await video.play();}
+    catch{ return toastError("Camera access denied");}
+
+    toastWarning("Please blink your eyes to capture");
+
+    const blinkThreshold=0.25; 
+    const consecutiveFrames=2; 
+    let blinked=false; let frameCounter=0;
+
+    const interval=setInterval(async ()=>{
+      const detections=await faceapi.detectSingleFace(video,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks(true);
+      if(!detections) return;
+
+      canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+      ctx.drawImage(video,0,0);
+
+      const leftEye=detections.landmarks.getLeftEye();
+      const rightEye=detections.landmarks.getRightEye();
+
+      function eyeAspectRatio(eye){
+        const a=Math.hypot(eye[1]._x-eye[5]._x,eye[1]._y-eye[5]._y);
+        const b=Math.hypot(eye[2]._x-eye[4]._x,eye[2]._y-eye[4]._y);
+        const c=Math.hypot(eye[0]._x-eye[3]._x,eye[0]._y-eye[3]._y);
+        return (a+b)/(2.0*c);
+      }
+
+      const avgEAR=(eyeAspectRatio(leftEye)+eyeAspectRatio(rightEye))/2.0;
+
+      if(avgEAR<blinkThreshold) frameCounter++; else frameCounter=0;
+
+      if(frameCounter>=consecutiveFrames && !blinked){
+        blinked=true; clearInterval(interval); toastSuccess("Blink detected! Capturing photo...");
+
+        const photo=canvas.toDataURL("image/jpeg",0.9);
+        const timestamp=formatPHTime();
+        const loginLogout=$("#loginLogoutSelect").val();
+        const ampm=$("#ampmSelect").val();
+
+        if(faceStream) faceStream.getTracks().forEach(t=>t.stop());
+        $("#videoXSF").hide();
+
+        const box=$(`
+          <div class="capture-box text-dark">
+            <strong>${qr}</strong><br>${timestamp}<br>${loginLogout} | ${ampm}
+            <img src="${photo}">
+            <button class="btn btn-warning btn-sm saveOfflineBtn mt-2">Save Offline</button>
+            <button class="btn btn-success btn-sm submitNowBtn mt-1">Submit Now</button>
+          </div>
+        `);
+        $("#photoResult").html(box);
+
+        box.find(".saveOfflineBtn").click(()=>{
+          const saved=loadSavedData();
+          saved.push({qr,face:photo,timestamp,loginLogout,ampm});
+          saveData(saved);
+          toastSuccess("Saved offline"); $("#photoResult").html('');
+        });
+
+        box.find(".submitNowBtn").click(function(){ submitToServer([{qr,face:photo,timestamp,loginLogout,ampm}], this); });
+      }
+
+    },100);
+  }
+
+  // =========================
+  // SERVER SUBMIT
+  // =========================
+  function submitToServer(payload, btn){
+    const $btn=$(btn); $btn.prop("disabled",true).text("Submitting...");
+    $.ajax({
+      url:APP_API_ENDPOINT+'/insert/employee/save_qr_face',
+      method:'POST',
+      contentType:'application/json',
+      data:JSON.stringify(payload),
+      success:function(res){
+        toastSuccess(res.message);
+        if(res.logs && res.logs.length) toastWarning(res.logs.join('<br>'));
+        $("#photoResult").html(''); renderAllData();
+      },
+      error:function(xhr){
+        if(xhr.responseJSON && xhr.responseJSON.message) toastError(xhr.responseJSON.message);
+        else toastError("Server request failed");
+      },
+      complete:function(){ $btn.prop("disabled",false).text("Submit"); }
+    });
+  }
+
+  // =========================
+  // OFFLINE DATA
+  // =========================
+  function renderAllData(){
+    const saved=loadSavedData();
+    if(!saved.length){ $("#allData").html('<p class="text-muted">No offline records</p>'); return; }
+    let html='';
+    saved.forEach((d,i)=>{
+      html+=`
+        <div class="capture-box text-dark" data-index="${i}">
+          <strong>${d.qr}</strong><br>${d.timestamp}<br>${d.loginLogout} | ${d.ampm}
+          <img src="${d.face}">
+          <button class="btn btn-success btn-sm submitOneBtn mt-2">Submit</button>
+          <button class="btn btn-danger btn-sm removeOneBtn mt-1">Remove</button>
+        </div>
+      `;
+    });
+    $("#allData").html(html);
+  }
+
+  $("#showAllDataBtn").click(renderAllData);
+
+  $("#allData").on("click",".removeOneBtn",function(){
+    const i=$(this).closest(".capture-box").data("index");
+    const saved=loadSavedData();
+    saved.splice(i,1); saveData(saved);
+    toastWarning("Record removed"); renderAllData();
+  });
+
+  $("#allData").on("click",".submitOneBtn",function(){
+    const i=$(this).closest(".capture-box").data("index");
+    submitToServer([loadSavedData()[i]],this);
+  });
+
+  $("#submitAllBtn").click(function(){
+    const saved=loadSavedData();
+    if(!saved.length) return toastWarning("No offline data");
+    submitToServer(saved,this);
+  });
+
+});
+</script>
+

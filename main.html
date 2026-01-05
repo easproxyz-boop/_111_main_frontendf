@@ -1,80 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eastern Samar Provincial Capitol</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eastern Samar Provincial Capitol</title>
 
-  <!-- ===========================
-       STYLESHEETS
-  ============================ -->
-  <link rel="shortcut icon" href="assets/images/logo/provincial-capitol-logo.png" type="image/x-icon">
+<!-- ===========================
+     FAVICON
+============================ -->
+<link rel="shortcut icon" href="assets/images/logo/provincial-capitol-logo.png" type="image/x-icon">
 
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- ===========================
+     CORE CSS
+============================ -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
 
-  <!-- DataTables Bootstrap 5 CSS -->
-  <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<!-- Local CSS (commented out) -->
+<!-- <link rel="stylesheet" href="assets/_bootstrap/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_cropper/cropper.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_datatables/dataTables.bootstrap5.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_select2/select2.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_select2/select2-bootstrap-5-theme.min.css"> -->
 
-  <!-- Select2 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
+<!-- ===========================
+     ICONS
+============================ -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-  <!-- Remix Icon CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<!-- Local icons (commented out) -->
+<!-- <link rel="stylesheet" href="assets/_remixicon/remixicon.css"> -->
+<!-- <link rel="stylesheet" href="assets/_font-awesome/all.min.css"> -->
 
-  <!-- Font Awesome Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- ===========================
+     NOTIFICATIONS
+============================ -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-  <!-- iziToast CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" />
+<!-- Local notifications (commented out) -->
+<!-- <link rel="stylesheet" href="assets/_izitoast/iziToast.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_toastr/toastr.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/_animate/animate.min.css"> -->
 
-  <!-- Animate.css for animations -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<!-- ===========================
+     CORE JS
+============================ -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
 
-  <!-- Toastr CSS (Optional alternative to iziToast) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<!-- Local JS (commented out) -->
+<!-- <script src="assets/_jquery/jquery-3.7.0.min.js"></script> -->
+<!-- <script src="assets/_bootstrap/bootstrap.bundle.min.js"></script> -->
+<!-- <script src="assets/_cropper/cropper.min.js"></script> -->
 
-  <!-- ===========================
-       JAVASCRIPTS
-  ============================ -->
+<!-- ===========================
+     PLUGINS
+============================ -->
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-  <!-- jQuery (must be loaded first) -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- Local plugins (commented out) -->
+<!-- <script src="assets/_datatables/jquery.dataTables.min.js"></script> -->
+<!-- <script src="assets/_datatables/dataTables.bootstrap5.min.js"></script> -->
+<!-- <script src="assets/_select2/select2.min.js"></script> -->
 
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ===========================
+     ALERTS
+============================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- DataTables Core -->
-  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-  <!-- DataTables Bootstrap 5 integration -->
-  <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<!-- Local alerts (commented out) -->
+<!-- <script src="assets/_izitoast/iziToast.min.js"></script> -->
+<!-- <script src="assets/_toastr/toastr.min.js"></script> -->
+<!-- <script src="assets/_sweetalert2/sweetalert2.js"></script> -->
 
-  <!-- Select2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- ===========================
+     UTILITIES
+============================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.1/lottie.min.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
-  <!-- iziToast JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+<!-- Local utilities (commented out) -->
+<!-- <script src="assets/_moment/moment.min.js"></script> -->
+<!-- <script src="assets/_chart/chart.js"></script> -->
+<!-- <script src="assets/_lottie-web/lottie.min.js"></script> -->
+<!-- <script src="assets/_socketio/socket.io.min.js"></script> -->
 
-  <!-- Toastr JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- ===========================
+     QR CODE (CORRECT)
+============================ -->
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-  <!-- SweetAlert2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Local QR (commented out) -->
+<!-- <script src="assets/_qrious/qrious.min.js"></script> -->
+<!-- <script src="assets/_html5-qrcode/html5-qrcode.min.js"></script> -->
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- ===========================
+     FACE API
+============================ -->
+<script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.0.2/dist/face-api.min.js"></script>
 
-  <!-- Moment.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<!-- Local Face API (commented out) -->
+<!-- <script src="assets/_face-api/face-api.min.js"></script> -->
 
-  <!-- Lottie Animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.1/lottie.min.js"></script>
-
-
-
-  <!-- CUSTOMIZE -->
-
+<!-- ===========================
+     CUSTOM CSS & JS
+============================ -->
   <link rel="stylesheet" href="css/button-settings-sticky/button-settings-sticky-oiuvtt66.css">
 
   <script src="js/darkmode/darkmode.js" defer></script>
@@ -83,10 +127,10 @@
 
   <script src="js/main/menu/menu_offcanvas.js" defer></script>
 
+  <script src="js/main/googleAuthAccess/googleAuthAccess.js" defer></script>
+
   <!-- CUSTOMIZE -->
 
-  <!-- Socket.io -->
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
 
 
@@ -132,7 +176,7 @@
            data-bs-toggle="dropdown"
            aria-expanded="false">
           <i class="ri-wechat-fill fs-3"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
             0
           </span>
         </a>
@@ -153,7 +197,7 @@
            data-bs-toggle="dropdown"
            aria-expanded="false">
           <i class="ri-notification-4-fill fs-3"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
             0
           </span>
         </a>
@@ -196,7 +240,7 @@
           <li><hr class="dropdown-divider"></li>
 
           <li>
-            <a class="dropdown-item text-danger fs-5" href="javascript:void(0)" id="sign-out-links">
+            <a class="dropdown-item text-danger fs-5" href="" id="sign-out-links">
               <i class="ri-logout-box-line me-2"></i> Sign Out
             </a>
           </li>
@@ -208,19 +252,51 @@
 </header>
 
 
+<!-- socket global -->
+
+
 <!-- MAIN CONTENT -->
 <main class="m-0 p-0">
   <div id="main-content-9999" class="container-fluid py-1">
 
 
   </div>
-  <div style="margin-bottom: 750px;"></div>
+  <div style="margin-bottom: 200px;"></div>
 </main>
 
 <!-- FOOTER -->
 <footer class="text-secondary text-center p-3 shadow-sm border-top">
   &copy; 2025 Eastern Samar Provincial Capitol. All rights reserved.
 </footer>
+
+
+<!-- OFFCANVAS MENU -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenuMain" aria-labelledby="offcanvasMenuMainLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-5" id="offcanvasMenuMainLabel">
+      <i class="ri-menu-2-line me-2"></i> Menu
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body p-0 mt-4" id="offcanvas-body-menu-8888s">
+
+
+
+
+
+
+
+  </div>
+
+  <div class="offcanvas-footer mt-auto p-3 border-top">
+    <small class="text-muted">Version 2.0.0</small>
+  </div>
+</div>
+
+
+
+
 
 
 <!-- STICKY SETTINGS BUTTONS -->
@@ -332,15 +408,17 @@
       });
 
       $.ajax({
-        url: APP_API_ENDPOINT + '/sign-out',
-        method: 'POST',
+        url: `${APP_API_ENDPOINT}/sign-out`,
+        method: 'GET',
         dataType: 'json',
+        xhrFields: {
+          withCredentials: true // ⚡ important: send cookies/session
+        },
         success: function(response) {
 
-         iziToast.destroy(); // closes all iziToast notifications
+          iziToast.destroy(); // closes all iziToast notifications
 
           if (response.status !== 'success') {
-
             iziToast.error({
               title: 'Error',
               message: response.message || 'Failed to sign out',
@@ -350,17 +428,16 @@
             return;
           }
 
-            iziToast.success({
-              title: 'Success',
-              message: response.message || 'Signed out successfully',
-              position: 'topRight',
-              timeout: 1500,
-              onClosing: function() {
-                window.location.href = response.redirect;
-              }
-            });
+          iziToast.success({
+            title: 'Success',
+            message: response.message || 'Signed out successfully',
+            position: 'topRight',
+            timeout: 1500,
+            onClosing: function() {
+              window.location.href = response.redirect;
+            }
+          });
 
-     
         },
         error: function(xhr, status, error) {
           iziToast.destroy(); // close loading toast
@@ -374,50 +451,12 @@
         }
       });
 
-
     });
 
   });
 </script>
 
 
-
-
-<script>
-$(document).ready(function () {
-  $.ajax({
-    url: APP_API_ENDPOINT + '/get-data/google-info',
-    method: 'GET',
-    dataType: 'json',
-    xhrFields: {
-      withCredentials: true // required
-    },
-    success: function (res) {
-      if (res.status !== 'success') {
-        return;
-      }
-      const data = res.data;
-
-      $('.user-id').text(data.google_id ?? 'N/A');
-      $('.user-email').text(data.google_email ?? 'N/A');
-      $('.user-name').text(data.google_name ?? 'Guest');
-      $('.user-picture').attr('src',data.google_picture || '/default-avatar.png');
-      $('.user-access-role').text(data.access_role ?? '');
-
-
-      if (data.current_status === 'TOKEN') {
-        window.location.href = '/token';
-      } else {
-        window.location.href = '/dashboard';
-      }
-
-    },
-    error: function (xhr) {
-      console.error('Google info error:', xhr.responseText);
-    }
-  });
-});
-</script>
 
 
 
