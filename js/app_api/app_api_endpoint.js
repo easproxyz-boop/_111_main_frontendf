@@ -3,8 +3,10 @@ const APP_API_ENDPOINT = (() => {
     if (host === 'localhost' || host === '127.0.0.1') {
         // Local development environment
         return 'http://localhost:3000';
+        //        return 'https://backend.whinxyz.online';
+
     } else {
         // Production environment
-        return 'http://72.61.214.150:3000';
+        return 'https://backend.whinxyz.online';
     }
 })();

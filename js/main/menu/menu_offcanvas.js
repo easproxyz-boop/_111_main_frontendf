@@ -11,8 +11,6 @@ $.ajax({
         const data = res?.data || {};
         let childPage_ATTENDANCE_SYSTEM = '';
 
-
-
         // =========================
         // ATTENDANCE SYSTEM ACCESS
         // =========================
@@ -36,18 +34,18 @@ $.ajax({
                 <!-- ATTENDANCE SUB MENU -->
                 <div class="collapse ps-3" id="collapseAttendanceSystem">
 
-                    <a href="/pages/maingeneral/menu/human_resources/employee_profile_info"
+                    <a href="/pages/maingeneral/menu/human_resources/employee_profile_info.html"
                        id="asidebari_at_employee_profile"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-user-line me-2"></i> Employee Profile
                     </a>
 
-                    <a href="/pages/attendance_system/at_logs"
+                    <a href="/pages/attendance_system/at_logs.html"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-time-line me-2"></i> Attendance Tracking
                     </a>
 
-                    <a href="/pages/maingeneral/menu/human_resources/leave_and_requests"
+                    <a href="/pages/maingeneral/menu/human_resources/leave_and_requests.html"
                      id="asidebari_at_employee_leave_and_requests"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-time-line me-2"></i> Leave & Requests
@@ -55,21 +53,21 @@ $.ajax({
 
 
 
-                    <a href="/pages/maingeneral/menu/human_resources/view_attendance_and_dtr"
+                    <a href="/pages/maingeneral/menu/human_resources/view_attendance_and_dtr.html"
                      id="asidebari_at_employee_view_attendance_and_dtr"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-time-line me-2"></i> View attendance & DTR
                     </a>
 
 
-                    <a href="/pages/maingeneral/menu/human_resources/payroll_integration"
+                    <a href="/pages/maingeneral/menu/human_resources/payroll_integration.html"
                      id="asidebari_at_employee_payroll_integration"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-time-line me-2"></i> Payroll Integration
                     </a>
 
 
-                    <a href="/pages/attendance_system/at_reports"
+                    <a href="/pages/attendance_system/at_reports.html"
                        class="asidebar-link-load-000 list-group-item list-group-item-action fw-semibold border-0 rounded-3 mb-1 fs-5">
                         <i class="ri-file-chart-line me-2"></i> Reports
                     </a>
@@ -85,7 +83,7 @@ $.ajax({
             <div class="list-group list-group-flush p-2">
 
                 <!-- HOME -->
-                <a href="/pages/maingeneral/menu/home"
+                <a href="/pages/maingeneral/menu/home.html"
                    id="asidebari_home"
                    class="asidebar-link-load-000 list-group-item list-group-item-action d-flex align-items-center fw-semibold rounded-3 mb-1 fs-5">
                     <i class="ri-home-9-line me-2"></i> Home
@@ -93,7 +91,7 @@ $.ajax({
 
 
                 <!-- REVIEW TIMELINE -->
-                <a href="/pages/maingeneral/menu/review_timeline"
+                <a href="/pages/maingeneral/menu/review_timeline.html"
                    id="asidebari_review_timeline"
                    class="asidebar-link-load-000 list-group-item list-group-item-action d-flex align-items-center fw-semibold rounded-3 mb-1 fs-5">
                     <i class="ri-timeline-view me-2"></i> Review Timeline
@@ -105,7 +103,7 @@ $.ajax({
 
 
                 <!-- PROFILE -->
-                <a href="/pages/maingeneral/menu/profile_information"
+                <a href="/pages/maingeneral/menu/profile_information.html"
                    id="asidebari_profile_information"
                    class="asidebar-link-load-000 list-group-item list-group-item-action d-flex align-items-center fw-semibold rounded-3 mb-1 fs-5">
                     <i class="ri-account-box-2-line me-2"></i> Profile Information
@@ -113,12 +111,11 @@ $.ajax({
 
 
                 <!-- LOG IN AND OUT -->
-                <a href="/pages/maingeneral/menu/qrcode_login_and_out"
+                <a href="/pages/maingeneral/menu/qrcode_login_and_out.html"
                    id="asidebari_qrcode_login_and_out"
                    class="asidebar-link-load-000 list-group-item list-group-item-action d-flex align-items-center fw-semibold rounded-3 mb-1 fs-5">
                     <i class="ri-login-box-line me-2"></i> QR Code Login / Logout                
                 </a>
-
 
 
 
@@ -180,21 +177,21 @@ $.ajax({
 
         // Set active link based on page
         switch (page) {
-          case "/pages/maingeneral/menu/home":
+          case "/pages/maingeneral/menu/home.html":
             $("#asidebari_home").addClass("active");
             break;
 
 
-          case "/pages/maingeneral/menu/review_timeline":
+          case "/pages/maingeneral/menu/review_timeline.html":
             $("#asidebari_review_timeline").addClass("active");
             break;
 
 
-          case "/pages/maingeneral/menu/budget_allocation":
+          case "/pages/maingeneral/menu/budget_allocation.html":
             $("#asidebari_budget_allocation").addClass("active");
             break;
 
-          case "/pages/maingeneral/menu/fund_withdrawal":
+          case "/pages/maingeneral/menu/fund_withdrawal.html":
             $("#asidebari_fund_withdrawal").addClass("active");
             break;
             
@@ -202,19 +199,19 @@ $.ajax({
 
           // HUMAN RESOURCES
 
-          case "/pages/maingeneral/menu/human_resources/employee_profile_info":
+          case "/pages/maingeneral/menu/human_resources/employee_profile_info.html":
             $("#asidebari_at_attendance_system_dropdown").addClass("active");
             $("#asidebari_at_employee_profile").addClass("active");
             break;
-          case "/pages/maingeneral/menu/human_resources/leave_and_requests":
+          case "/pages/maingeneral/menu/human_resources/leave_and_requests.html":
             $("#asidebari_at_attendance_system_dropdown").addClass("active");
             $("#asidebari_at_employee_leave_and_requests").addClass("active");
             break;
-          case "/pages/maingeneral/menu/human_resources/payroll_integration":
+          case "/pages/maingeneral/menu/human_resources/payroll_integration.html":
             $("#asidebari_at_attendance_system_dropdown").addClass("active");
             $("#asidebari_at_employee_payroll_integration").addClass("active");
             break;
-          case "/pages/maingeneral/menu/human_resources/view_attendance_and_dtr":
+          case "/pages/maingeneral/menu/human_resources/view_attendance_and_dtr.html":
             $("#asidebari_at_attendance_system_dropdown").addClass("active");
             $("#asidebari_at_employee_view_attendance_and_dtr").addClass("active");
             break;
@@ -224,16 +221,16 @@ $.ajax({
           // HUMAN RESOURCES
 
             
-          case "/pages/maingeneral/menu/profile_information":
+          case "/pages/maingeneral/menu/profile_information.html":
             $("#asidebari_profile_information").addClass("active");
             break;
 
-         case "/pages/maingeneral/menu/qrcode_login_and_out":
+         case "/pages/maingeneral/menu/qrcode_login_and_out.html":
             $("#asidebari_qrcode_login_and_out").addClass("active");
             break;
             
 
-          case "/pages/maingeneral/menu_settings/user_account_management/users":
+          case "/pages/maingeneral/menu_settings/user_account_management/users.html":
             $("#settingSidebariUsrm_users").addClass("active");
             break;
 
@@ -250,7 +247,7 @@ $.ajax({
       }
     });
   }
-    loadPage("/pages/maingeneral/menu/home");
+    loadPage("/pages/maingeneral/menu/home.html");
 
   /* ===============================
      SIDEBAR CLICK HANDLER
@@ -263,8 +260,9 @@ $.ajax({
   });
 
 
-
-
   }
 mainHome();
+
+
+
 });

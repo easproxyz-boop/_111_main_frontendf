@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const currentPath = window.location.pathname;
-    let targetPage = '/main_'; // changed const to let
+    let targetPage = '/main_.html'; // changed const to let
 
     $.ajax({
         url: APP_API_ENDPOINT + '/getdata/google_user_access',
@@ -14,8 +14,8 @@ $(document).ready(function () {
 
             // If no Google email, redirect to sign-in
             if (!data.google_email) {
-                if (currentPath !== '/sign-in') {
-                    window.location.replace('/sign-in');
+                if (currentPath !== '/sign-in.html') {
+                    window.location.replace('/sign-in.html');
                 }
                 return;
             }
@@ -31,22 +31,22 @@ $(document).ready(function () {
             // Determine target page based on current_status
             switch (data.current_status) {
                 case 'TOKEN':
-                    targetPage = '/getstarted/token';
+                    targetPage = '/getstarted/token.html';
                     break;
                 case 'PROFILE':
-                    targetPage = '/getstarted/profile';
+                    targetPage = '/getstarted/profile.html';
                     break;
                 case 'COMPLETED':
-                    targetPage = '/getstarted/completed';
+                    targetPage = '/getstarted/completed.html';
                     break;
                 case 'BLOCKED':
-                    targetPage = '/sign-in';
+                    targetPage = '/sign-in.html';
                     break;
                 case 'ACTIVE':
-                    targetPage = '/main';
+                    targetPage = '/main.html';
                     break;
                 default:
-                    targetPage = '/sign-in';
+                    targetPage = '/sign-in.html';
                     break;
             }
 
@@ -79,8 +79,8 @@ $(document).ready(function () {
         },
         error: function (xhr) {
             console.error('Google info error:', xhr.responseText);
-            if (currentPath !== '/sign-in') {
-                window.location.replace('/sign-in');
+            if (currentPath !== '/sign-in.html') {
+                window.location.replace('/sign-in.html');
             }
         }
     });
