@@ -1,0 +1,177 @@
+<style>
+#table_employee_leave_QtYo01 th:last-child,
+#table_employee_leave_QtYo01 td:last-child{
+  position:sticky;
+  right:0;
+  background:#0000009f;
+  z-index:2;
+}
+
+#table_employee_leave_QtYo01 thead th{
+  position:sticky;
+  top:0;
+  z-index:3;
+}
+#table_employee_leave_QtYo01 thead th:last-child{
+  z-index:4;
+}
+</style>
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Eastern Samar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Human Resources and Management Office</li>
+    <li class="breadcrumb-item active" aria-current="page">Leave</li>
+  </ol>
+</nav>
+
+
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <select class="form-select w-auto" id="select_latest_table_employee_leave_QtYo01">
+          <option value="LATEST" selected>LATEST</option>
+          <option value="ALL">ALL</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <!-- Updated button to correctly trigger modal -->
+        <button type="button" class="btn btn-primary float-end fw-semibold" 
+                data-bs-toggle="modal" 
+                data-bs-target="#modal-add-new-employee-leave_QtYo01">
+          <i class="ri-add-large-fill me-1"></i> Add New Leave
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body m-0 p-0">
+    <div class="table-responsive">
+      <table id="table_employee_leave_QtYo01" class="table table-bordered table-striped text-nowrap w-100">
+        <thead class="table-primary">
+          <tr>
+            <th class="text-center">No. <br> &nbsp; </th>
+            <th class="text-center">Date Added <br> &nbsp; </th>
+            <th class="text-center">Modification type <br> &nbsp; </th>
+            <th class="text-center">Current Status <br> &nbsp; </th>
+            <th class="text-center">Date Leave <br> From </th>          
+            <th class="text-center">Date Leave <br> To </th>
+            <th class="text-center">ID Photo <br> &nbsp; </th>
+            <th class="text-center">Employee Status <br> &nbsp; </th>
+            <th class="text-center">Employee ID <br> &nbsp; </th>
+            <th class="text-center">Name <br> &nbsp; </th>
+            <th class="text-center">Office <br> &nbsp; </th>
+            <th class="text-center">Office Head<br> &nbsp; </th>
+            <th class="text-center">Approved By<br> &nbsp; </th>
+            <th class="text-center text-white">Action <br> &nbsp; </th>
+          </tr>
+          <tr>
+            <!-- Column search inputs -->
+            <th></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-add-new-employee-leave_QtYo01" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-add-new-employee-leave_QtYo01Label" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="modal-add-new-employee-leave_QtYo01Label">Application for Leave</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="card p-2">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="select_employee_QtYo01" class="form-label">
+                        Select Employee
+                    </label>
+                    <select class="form-select text-uppercase" id="select_employee_QtYo01">
+                        <option value="" selected disabled>-- Choose Employee --</option>
+                        <option value="emp1">EMPLOYEE 1</option>
+                        <option value="emp2">EMPLOYEE 2</option>
+                        <option value="emp3">EMPLOYEE 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary w-100">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+$(document).ready(function () {
+    // Initialize Select2 inside Bootstrap modal
+    $('#select_employee_QtYo01').select2({
+        theme: 'bootstrap-5',
+        dropdownParent: $('#modal-add-new-employee-leave_QtYo01'),
+        placeholder: '-- Choose Employee --',
+        allowClear: true,
+
+/* 
+        ajax: {
+            url: 'ajax/get_employees.php',   // your backend file
+            type: 'GET',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term   // search keyword
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        } */
+
+
+    });
+
+});
+</script>

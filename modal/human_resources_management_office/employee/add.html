@@ -1,0 +1,1168 @@
+<form id="form_addemployee_fXf1111">
+<!-- Modal -->
+<div class="modal fade" id="modal-add-new-employee_fXf1111" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-add-new-employee_fXf1111Label" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h1 class="modal-title fs-5 text-white" id="modal-add-new-employee_fXf1111Label"><i class="ri-add-large-fill me-1"></i> Add New Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card bg-primary text-white">
+              <h1 class="fs-5 m-0 p-2 ">Personal Information</h1>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Row: ID Picture & Fullname -->
+        <div class="row">
+          <!-- Left Column: ID Picture -->
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">ID Photo</h1>
+              </div>
+              <div class="card-body text-center">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <img
+                    id="preview1_yyxt"
+                    src="./assets/images/default-picture/user-3-fill.png"
+                    alt="Cropped preview"
+                    class="img-fluid border border-2 mb-2"
+                    style="width:300px;"
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-primary mb-3"
+                    id="btn_modal_crop_img_staticBackdrop"
+                    style="width:300px;"
+                  >
+                    Choose Photo
+                  </button>
+
+                  <input type="hidden" name="addEmployee_image_base64" id="addEmployee_image_base64">
+
+                  <div class="mb-2 w-100" style="max-width:300px;">
+                    <label for="addEmployee_employee_id" class="form-label text-start">Employee ID</label>
+                    <input
+                      type="text"
+                      class="form-control fw-semibold text-uppercase bg-white text-dark"
+                      id="addEmployee_employee_id"
+                      name="addEmployee_employee_id"
+                      placeholder="Enter employee id"
+                      required
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Fullname -->
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">I. Fullname</h1>
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <label for="addEmployee_title_prefix" class="form-label">Title / Prefix (e.g., ATTY., ENGR., DOC., etc. — acronym only) </label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_title_prefix" name="addEmployee_title_prefix" placeholder="Enter Title / Prefix" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_first_name" class="form-label">First Name</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_first_name" name="addEmployee_first_name" placeholder="Enter first name" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_middle_name" class="form-label">Middle Name</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_middle_name" name="addEmployee_middle_name" placeholder="Enter middle name" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_last_name" class="form-label">Last Name</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_last_name" name="addEmployee_last_name" placeholder="Enter last name" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_suffix" class="form-label">Suffix</label>
+                  <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_suffix" name="addEmployee_suffix" required>
+                    <option value="" disabled selected>--SELECT SUFFIX--</option>
+                    <option value="N/A">N/A</option>
+                    <option value="JR.">JR.</option>
+                    <option value="SR.">SR.</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                    <option value="V">V</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end row -->
+
+        <!-- Row: Gender, Civil Status & Birthdate -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">II. Gender, Civil Status & Citizenship</h1>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <label for="addEmployee_sex" class="form-label">Sex</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_sex" name="addEmployee_sex" required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="MALE">MALE</option>
+                      <option value="FEMALE">FEMALE</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label for="addEmployee_civilstatus" class="form-label">Civil Status</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_civilstatus" name="addEmployee_civilstatus" required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="SINGLE">SINGLE</option>
+                      <option value="MARRIED">MARRIED</option>
+                      <option value="WIDOWED">WIDOWED</option>
+                      <option value="DIVORCED">DIVORCED</option>
+                    </select>
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <label for="addEmployee_citizenship" class="form-label">Citizenship</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_citizenship" name="addEmployee_citizenship" placeholder="Enter Citizenship" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">III. Date of Birth & Place of Birth</h1>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_birth_year" class="form-label">Birthdate (Year)</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_birth_year" name="addEmployee_birth_year" required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="N/A">N/A</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_birth_month" class="form-label">Birthdate (Month)</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_birth_month" name="addEmployee_birth_month" required>
+                      <option value="" disabled selected>Month</option>
+                      <option value="N/A">N/A</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_birth_day" class="form-label">Birthdate (Day)</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark" id="addEmployee_birth_day" name="addEmployee_birth_day" required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="N/A">N/A</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_placeofbirth_town" class="form-label">Place of Birth (Town)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_placeofbirth_town" name="addEmployee_placeofbirth_town" placeholder="Enter Town" required>
+                  </div>
+
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_placeofbirth_province" class="form-label">Place of Birth (Province)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_placeofbirth_province" name="addEmployee_placeofbirth_province" placeholder="Enter Province" required>
+                  </div>
+
+                  <div class="col-md-4 mb-2">
+                    <label for="addEmployee_placeofbirth_country" class="form-label">Place of Birth (Country)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_placeofbirth_country" name="addEmployee_placeofbirth_country" placeholder="Enter Country" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end row -->
+
+        <!-- Row: Contact Information -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">IV. Contact Information</h1>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <label for="addEmployee_phone_number" class="form-label">Phone Number</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_phone_number" name="addEmployee_phone_number" placeholder="0900-000-0000" maxlength="13" required>
+                      <span class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="phoneNumber_na">
+                        <label class="ms-1 mb-0" for="phoneNumber_na">N/A</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-2">
+                    <label for="addEmployee_telephone_number" class="form-label">Telephone Number</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_telephone_number" name="addEmployee_telephone_number" placeholder="ENTER TEL. NUMBER"  required>
+                      <span class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="telephonexNumber_na">
+                        <label class="ms-1 mb-0" for="telephonexNumber_na">N/A</label>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-2">
+                    <label for="addEmployee_email_address" class="form-label">Email Address</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_email_address" name="addEmployee_email_address" placeholder="ENTER EMAIL ADDRESS" required>
+                      <span class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="emailAddress_na">
+                        <label class="ms-1 mb-0" for="emailAddress_na">N/A</label>
+                      </span>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">V. Address</h1>
+              </div>
+              <div class="card-body">
+
+
+                <div class="row">
+                  <h6>Present Address</h6>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_present_address_province" class="form-label">Province</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_present_address_province" name="addEmployee_present_address_province" placeholder="Enter province" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_present_address_town" class="form-label">Town/City</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_present_address_town" name="addEmployee_present_address_town" placeholder="Enter town" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_present_address_brgy" class="form-label">Brgy</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_present_address_brgy" name="addEmployee_present_address_brgy" placeholder="Enter brgy" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_present_address_purok" class="form-label">Purok</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_present_address_purok" name="addEmployee_present_address_purok" placeholder="Enter purok" required>
+                  </div>
+
+
+                </div>
+
+
+                <hr class="mb-2">
+
+                
+                <div class="row">
+                  <h6>Permanent Address</h6>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_permanent_address_province" class="form-label">Province</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_permanent_address_province" name="addEmployee_permanent_address_province" placeholder="Enter province" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_permanent_address_town" class="form-label">Town/City</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_permanent_address_town" name="addEmployee_permanent_address_town" placeholder="Enter town" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_permanent_address_brgy" class="form-label">Brgy</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_permanent_address_brgy" name="addEmployee_permanent_address_brgy" placeholder="Enter brgy" required>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_permanent_address_purok" class="form-label">Purok</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_permanent_address_purok" name="addEmployee_permanent_address_purok" placeholder="Enter purok" required>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div> <!-- end row -->
+
+
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <div class="card bg-primary text-white">
+              <h1 class="fs-5 m-0 p-2 ">Emergency Contact</h1>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0"> </h1>
+              </div>
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_emergencycontact_firstname" class="form-label">First Name</label>
+                    <input type="text"
+                          class="form-control fw-semibold text-uppercase bg-white text-dark"
+                          id="addEmployee_emergencycontact_firstname"
+                          name="addEmployee_emergencycontact_firstname"
+                          placeholder="Enter First name"
+                          required>
+                  </div>
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_emergencycontact_middlename" class="form-label">Middle Name</label>
+                    <input type="text"
+                          class="form-control fw-semibold text-uppercase bg-white text-dark"
+                          id="addEmployee_emergencycontact_middlename"
+                          name="addEmployee_emergencycontact_middlename"
+                          placeholder="Enter Middle name"
+                          required>
+                  </div>
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_emergencycontact_lastname" class="form-label">Last Name</label>
+                    <input type="text"
+                          class="form-control fw-semibold text-uppercase bg-white text-dark"
+                          id="addEmployee_emergencycontact_lastname"
+                          name="addEmployee_emergencycontact_lastname"
+                          placeholder="Enter Last name"
+                          required>
+                  </div>
+
+                  <div class="col-md-3 mb-2">
+                    <label for="addEmployee_emergencycontact_suffix" class="form-label">Suffix</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark"
+                            id="addEmployee_emergencycontact_suffix"
+                            name="addEmployee_emergencycontact_suffix"
+                            required>
+                      <option value="" disabled selected>SUFFIX</option>
+                      <option value="N/A">N/A</option>
+                      <option value="JR.">JR.</option>
+                      <option value="SR.">SR.</option>
+                      <option value="II">II</option>
+                      <option value="III">III</option>
+                      <option value="IV">IV</option>
+                      <option value="V">V</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-12 mb-2">
+                    <label for="addEmployee_emergencycontact_relationship" class="form-label">Relationship</label>
+                    <input type="text"
+                          class="form-control fw-semibold text-uppercase bg-white text-dark"
+                          id="addEmployee_emergencycontact_relationship"
+                          name="addEmployee_emergencycontact_relationship"
+                          placeholder="Enter Relationship"
+                          required>
+                  </div>
+
+                  <div class="col-md-12 mb-2">
+                    <label for="addEmployee_emergencycontact_phone_number" class="form-label">Phone Number</label>
+
+                    <div class="input-group">
+                      <input type="text"
+                            class="form-control fw-semibold text-uppercase bg-white text-dark"
+                            id="addEmployee_emergencycontact_phone_number"
+                            name="addEmployee_emergencycontact_phone_number"
+                            placeholder="0900-000-0000"
+                            maxlength="13"
+                            required>
+
+                      <span class="input-group-text">
+                        <input class="form-check-input mt-0"
+                              type="checkbox"
+                              id="emergencyContact_phoneNumber_na">
+                        <label class="ms-1 mb-0" for="emergencyContact_phoneNumber_na">N/A</label>
+                      </span>
+                    </div>
+                  </div>
+
+                </div><!-- /.row -->
+              </div><!-- /.card-body -->
+            </div><!-- /.card -->
+
+          </div><!-- /.col-md-6 -->
+
+          <div class="col-md-6">
+            <!-- Reserved for future content -->
+          </div>
+
+        </div><!-- /.row -->
+
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <div class="card bg-primary text-white">
+              <h1 class="fs-5 m-0 p-2 ">Educational Background</h1>
+            </div>
+          </div>
+        </div> <!-- /.end row -->
+
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                
+              </div>
+              <div class="card-body">
+
+
+                <div class="mb-2">
+                  <label for="addEmployee_educationbackground_highest_educational_attainment" class="form-label">Highest Educational Attainment</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_educationbackground_highest_educational_attainment" name="addEmployee_educationbackground_highest_educational_attainment" placeholder="Enter Highest Educational Attainment" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_educationbackground_degree_course" class="form-label">Degree Course</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_educationbackground_degree_course" name="addEmployee_educationbackground_degree_course" placeholder="Enter Degree Course" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_educationbackground_school" class="form-label">School</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_educationbackground_school" name="addEmployee_educationbackground_school" placeholder="Enter School" required>
+                </div>
+                <div class="mb-2">
+                  <label for="addEmployee_educationbackground_year_graduated" class="form-label">Year Graduated</label>
+                  <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_educationbackground_year_graduated" name="addEmployee_educationbackground_year_graduated" maxlength="4" placeholder="Enter Year Graduated" required>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <div class="card bg-primary text-white">
+              <h1 class="fs-5 m-0 p-2 ">Employment Information</h1>
+            </div>
+          </div>
+        </div> <!-- /.end row -->
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                
+              </div>
+              <div class="card-body">
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="addEmployee_employementinfo_date_of_original_appointment" class="form-label">Date of Original Appointment</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_date_of_original_appointment" name="addEmployee_employementinfo_date_of_original_appointment" placeholder="E.G., YYYY-MM-DD" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="addEmployee_employementinfo_date_of_last_promotion" class="form-label">Date of Last Promotion</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_date_of_last_promotion" name="addEmployee_employementinfo_date_of_last_promotion" placeholder="E.G., YYYY-MM-DD" required>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="addEmployee_employementinfo_start_date" class="form-label">Start date (From)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_start_date" name="addEmployee_employementinfo_start_date" placeholder="E.G., YYYY-MM-DD" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="addEmployee_employementinfo_end_date" class="form-label">End date (To)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_end_date" name="addEmployee_employementinfo_end_date" placeholder="E.G., YYYY-MM-DD" required>
+                  </div>
+                </div>
+
+
+                <hr>
+
+                <div class="mb-2 mt-5">
+                    <label for="addEmployee_employementinfo_office_department" class="form-label">Office Department</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark"
+                            id="addEmployee_employementinfo_office_department"
+                            name="addEmployee_employementinfo_office_department"
+                            required>
+                      <option value="" disabled selected>--SELECT DEPARTMENT--</option>
+                    <!--   <option value="N/A">N/A</option>
+ -->
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label for="addEmployee_employementinfo_office_head_supervisor" class="form-label">Is the person the office head?</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark"
+                            id="addEmployee_employementinfo_office_head_supervisor"
+                            name="addEmployee_employementinfo_office_head_supervisor"
+                            required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="mb-2 mt-5">
+                    <label for="addEmployee_employementinfo_designation_position_title" class="form-label">Designation Position Title</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_designation_position_title" name="addEmployee_employementinfo_designation_position_title" placeholder="Enter Designation Position Title" required>
+                </div>
+
+                <div class="mb-2">
+                    <label for="addEmployee_employementinfo_employement_status" class="form-label">Employement Status</label>
+                    <select class="form-select fw-semibold text-uppercase bg-white text-dark"
+                            id="addEmployee_employementinfo_employement_status"
+                            name="addEmployee_employementinfo_employement_status"
+                            required>
+                      <option value="" disabled selected>--SELECT--</option>
+                      <option value="JOB ORDER">JOB ORDER</option>
+                      <option value="PERMANENT">PERMANENT</option>
+                      <option value="RESIGNED">RESIGNED</option>
+                      <option value="RETIRED">RETIRED</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="mb-2 mt-5">
+                    <label for="addEmployee_employementinfo_plantilla_item_number" class="form-label">Plantilla item number</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_plantilla_item_number" name="addEmployee_employementinfo_plantilla_item_number" placeholder="Enter Plantilla Item Number" required>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-2 "> 
+                    <label for="addEmployee_employementinfo_salary_grade" class="form-label">Salary Grade (Digit Only)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_salary_grade" name="addEmployee_employementinfo_salary_grade" placeholder="Enter Salary Grade" required>
+                  </div>
+
+                  <div class="col-md-6 mb-2 "> 
+                    <label for="addEmployee_employementinfo_step_increment" class="form-label">Step Increment (Digit Only)</label>
+                    <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_step_increment" name="addEmployee_employementinfo_step_increment" placeholder="Enter Step Incrememt" required>
+                  </div>
+                </div>
+
+
+
+                <div class="mb-2">
+                    <label for="addEmployee_employementinfo_salary_amount" class="form-label">Salary Amount</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control fw-semibold text-uppercase bg-white text-dark" id="addEmployee_employementinfo_salary_amount" name="addEmployee_employementinfo_salary_amount" placeholder="ENTER SALARY AMOUNT" maxlength="20" required>
+                      <span class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" id="salaryAmount_na">
+                        <label class="ms-1 mb-0" for="salaryAmount_na">N/A</label>
+                      </span>
+                    </div>
+                </div>
+
+
+
+              
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+      </div> <!-- end modal-body -->
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary w-100 fs-5"><i class="ri-save-2-fill me-2 fs-5"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+<!-- ============================
+  CROPPER MODAL
+=============================== -->
+<div class="modal fade" id="modal_crop_img_staticBackdrop_cxzF1f2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Crop and Rotate Image</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body bg-secondary bg-opacity-25">
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <label class="btn btn-primary mb-3">
+                 <i class="ri-add-line"></i> Add Photo <input id="ainputImage" type="file" accept="image/*" hidden>
+                 </label>
+                <div class="img-container-yyxt mb-3" style="height:420px; background:#fff; display:flex; justify-content:center; align-items:center;">
+                  <img id="xfas_image" src="../assets/images/default-picture/user-3-fill.png" alt="Source" style="max-height:100%; max-width:100%;">
+                </div>
+                <div class="d-flex flex-column gap-2">
+                  <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" id="btnZoomIn" class="btn btn-outline-secondary btn-sm fs-5">Zoom +</button>
+                    <button type="button" id="btnZoomOut" class="btn btn-outline-secondary btn-sm fs-5">Zoom -</button>
+                    <button type="button" id="btnReset" class="btn btn-outline-secondary btn-sm fs-5">Reset</button>
+                    <button type="button" id="btnCrop" class="btn btn-success btn-sm ms-auto fs-5"><i class="ri-crop-line"></i> Crop</button>
+                  </div>
+                  <div>
+                    <label class="form-label mb-1">Rotate (Free rotation) </label>
+                    <input type="range" min="0" max="360" value="0" id="rotateSlider" class="form-range">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <h6 class="card-title mb-2">Cropped preview</h6>
+                <img id="preview2_yyxt" src="../assets/images/default-picture/user-3-fill.png" alt="Cropped preview 2" class="img-fluid mb-2" />
+                <button type="button" id="btnClear" class="btn btn-outline-danger w-100 mt-2">Clear</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(function () {
+
+  const $modal = $('#modal-add-new-employee_fXf1111');
+  const $departmentSelect = $('#addEmployee_employementinfo_office_department');
+
+  // 🔥 CRITICAL FIX
+  $(document).on('select2:open', () => {
+    document.querySelector('.modal.show')?.removeAttribute('tabindex');
+  });
+
+  function initDepartmentSelect() {
+    if ($departmentSelect.hasClass('select2-hidden-accessible')) {
+      $departmentSelect.select2('destroy');
+    }
+
+    $departmentSelect.select2({
+      placeholder: '-- SELECT DEPARTMENT --',
+      theme: 'bootstrap-5',
+      width: '100%',
+      dropdownParent: $modal
+    });
+  }
+
+  $modal.on('shown.bs.modal', function () {
+
+    if ($departmentSelect.data('loaded')) return;
+
+    $.ajax({
+      url: `${APP_API_ENDPOINT}/getdata/office/department`,
+      type: 'GET',
+      dataType: 'json',
+      xhrFields: { withCredentials: true },
+      success(response) {
+
+        if (response.status !== 'success') return;
+
+
+        // Default placeholder (EMPTY SELECT)
+        $departmentSelect.append(
+          new Option('-- SELECT DEPARTMENT --', '', true, true)
+        );
+
+        // Optional N/A choice (not selected)
+        $departmentSelect.append(
+          new Option('N/A', 'N/A', false, false)
+        );
+
+
+
+
+        response.data.forEach(dept => {
+          $departmentSelect.append(
+            new Option(
+              `${dept.office_id} - ${dept.office_name} - ${dept.office_acronym}`,
+              `${dept.office_id} / ${dept.office_name} / ${dept.office_acronym}`
+            )
+          );
+        });
+
+
+
+        initDepartmentSelect();
+        $departmentSelect.data('loaded', true);
+      }
+    });
+  });
+
+});
+</script>
+
+
+
+<script>
+$(function () {
+
+    const $modal = $('#modal-add-new-employee_fXf1111');
+
+    const currentYear = new Date().getFullYear();
+
+    const $year  = $("#addEmployee_birth_year");
+    const $month = $("#addEmployee_birth_month");
+    const $day   = $("#addEmployee_birth_day");
+
+    // -----------------------
+    // Helper
+    function addBaseOptions($select) {
+        $select.append('<option value=""></option>');   // for placeholder
+        $select.append('<option value="N/A">N/A</option>');
+    }
+
+    // -----------------------
+    // Populate Years
+    addBaseOptions($year);
+    for (let y = currentYear; y >= 1900; y--) {
+        $year.append(`<option value="${y}">${y}</option>`);
+    }
+
+    // -----------------------
+    // Populate Months
+    const months = [
+        "[1] January","[2] February","[3] March","[4] April","[5] May","[6] June",
+        "[7] July","[8] August","[9] September","[10] October",
+        "[11] November","[12] December"
+    ];
+    addBaseOptions($month);
+    months.forEach((m, i) => {
+        $month.append(`<option value="${i+1}">${m}</option>`);
+    });
+
+    // -----------------------
+    // Populate Days
+    function populateDays(year, month) {
+        $day.empty();
+        addBaseOptions($day);
+
+        if (year && month && year !== "N/A" && month !== "N/A") {
+            const daysInMonth = new Date(year, month, 0).getDate();
+            for (let d = 1; d <= daysInMonth; d++) {
+                $day.append(`<option value="${d}">${d}</option>`);
+            }
+        }
+
+        // refresh select2 safely
+        $day.val(null).trigger("change");
+    }
+
+    // -----------------------
+    // Init Select2 (FIXED)
+    function initSelect2($el) {
+        $el.select2({
+            theme: "bootstrap-5",
+            width: "100%",
+            placeholder: "Select",
+            allowClear: true,
+
+            // 🔥 VERY IMPORTANT FOR MODALS
+            dropdownParent: $modal,
+
+            // 🔥 FORCE SEARCH BOX TO SHOW
+            minimumResultsForSearch: 0
+        });
+    }
+
+    initSelect2($year);
+    initSelect2($month);
+    initSelect2($day);
+
+    // -----------------------
+    // Events
+    $year.on("change", function () {
+        const val = $(this).val();
+
+        if (val === "N/A") {
+            $month.val("N/A").trigger("change");
+            populateDays("N/A", "N/A");
+        } else {
+            populateDays(val, $month.val());
+        }
+    });
+
+    $month.on("change", function () {
+        populateDays($year.val(), $(this).val());
+    });
+
+    // -----------------------
+    // Initial load
+    populateDays(null, null);
+
+});
+</script>
+
+
+
+
+
+
+<!-- CONTACT NUMBER FORMAT -->
+<script>
+$(document).ready(function() {
+
+    // Format input as 0900-000-0000 while typing, max 11 digits
+    $('#addEmployee_phone_number').on('input', function() {
+        if ($(this).prop('disabled')) return;
+
+        // Remove all non-digit characters
+        let numbers = $(this).val().replace(/\D/g, '');
+
+        // Limit to max 11 digits
+        if (numbers.length > 11) numbers = numbers.slice(0, 11);
+
+        // Format: 4-3-4 (for 11 digits like 09123-456-7890)
+        let formatted = '';
+        if (numbers.length > 7) {
+            formatted = numbers.slice(0, 4) + '-' + numbers.slice(4, 7) + '-' + numbers.slice(7);
+        } else if (numbers.length > 4) {
+            formatted = numbers.slice(0, 4) + '-' + numbers.slice(4);
+        } else {
+            formatted = numbers;
+        }
+
+        $(this).val(formatted);
+    });
+
+});
+</script>
+
+<script>
+$(document).ready(function() {
+
+    // Format input as 0900-000-0000 while typing, max 11 digits
+    $('#addEmployee_emergencycontact_phone_number').on('input', function() {
+        if ($(this).prop('disabled')) return;
+
+        // Remove all non-digit characters
+        let numbers = $(this).val().replace(/\D/g, '');
+
+        // Limit to max 11 digits
+        if (numbers.length > 11) numbers = numbers.slice(0, 11);
+
+        // Format: 4-3-4 (for 11 digits like 09123-456-7890)
+        let formatted = '';
+        if (numbers.length > 7) {
+            formatted = numbers.slice(0, 4) + '-' + numbers.slice(4, 7) + '-' + numbers.slice(7);
+        } else if (numbers.length > 4) {
+            formatted = numbers.slice(0, 4) + '-' + numbers.slice(4);
+        } else {
+            formatted = numbers;
+        }
+
+        $(this).val(formatted);
+    });
+
+});
+</script>
+
+
+
+<!-- CONTACT NUMBER FORMAT -->
+
+<!-- checkbox N/A -->
+
+<script>
+$(document).ready(function() {
+
+                    // N/A checkbox toggle
+                    $('#phoneNumber_na').on('change', function() {
+                        if($(this).is(':checked')) {
+                            $('#addEmployee_phone_number').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                            $('#addEmployee_phone_number').val('').prop('disabled', false).attr('required', true);
+                        }
+                    });
+                    // N/A checkbox toggle
+                    $('#emergencyContact_phoneNumber_na').on('change', function() {
+                        if($(this).is(':checked')) {
+                            $('#addEmployee_emergencycontact_phone_number').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                            $('#addEmployee_emergencycontact_phone_number').val('').prop('disabled', false).attr('required', true);
+                        }
+                    });
+                    // N/A checkbox toggle
+                    $('#telephonexNumber_na').on('change', function() {
+                        if($(this).is(':checked')) {
+                            $('#addEmployee_telephone_number').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                            $('#addEmployee_telephone_number').val('').prop('disabled', false).attr('required', true);
+                        }
+                    });
+
+                    // N/A checkbox toggle
+                    $('#emailAddress_na').on('change', function() {
+                        if($(this).is(':checked')) {
+                            $('#addEmployee_email_address').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                            $('#addEmployee_email_address').val('').prop('disabled', false).attr('required', true);
+                        }
+                    });
+
+                                 // N/A checkbox toggle
+                    $('#salaryAmount_na').on('change', function() {
+                        if($(this).is(':checked')) {
+                            $('#addEmployee_employementinfo_salary_amount').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                            $('#addEmployee_employementinfo_salary_amount').val('').prop('disabled', false).attr('required', true);
+                        }
+                    });       
+
+                    
+
+                    // set default checked
+                    $('#otherOffice_na').prop('checked', true);
+                    // apply initial state
+                    if ($('#otherOffice_na').is(':checked')) {
+                        $('#addEmployee_other_office').val('N/A').prop('disabled', true).removeAttr('required');
+                    }
+    
+                    $('#otherOffice_na').change(function() {
+                        if ($(this).is(':checked')) {
+                         $('#addEmployee_other_office').val('N/A').prop('disabled', true).removeAttr('required');
+                        } else {
+                         $('#addEmployee_other_office').prop('disabled', false).attr('required', true);
+                        }
+                    });
+});
+</script>
+<!-- checkbox N/A -->
+
+
+
+
+
+<script>
+$(function () {
+
+  $('#addEmployee_employementinfo_salary_amount').on('input', function () {
+    let input = this.value;
+
+    // Remove invalid characters (keep digits & dot)
+    input = input.replace(/[^0-9.]/g, '');
+
+    // Prevent multiple decimals
+    const parts = input.split('.');
+    if (parts.length > 2) {
+      input = parts[0] + '.' + parts[1];
+    }
+
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ?? '';
+
+    // Limit decimal to 2 digits
+    decimalPart = decimalPart.substring(0, 2);
+
+    // Add thousand separators
+    if (integerPart) {
+      integerPart = Number(integerPart).toLocaleString('en-US');
+    }
+
+    // Rebuild value
+    this.value = decimalPart !== ''
+      ? integerPart + '.' + decimalPart
+      : integerPart;
+  });
+
+});
+</script>
+
+
+
+
+
+
+
+
+<script>
+$(function () {
+  // image id picture ==================================
+  let cropper;
+  const image = document.getElementById('xfas_image');
+  const fileInput = document.getElementById('ainputImage');
+  const preview = document.getElementById('preview2_yyxt');
+  const mainPreview = document.getElementById('preview1_yyxt');
+  const hiddenBase64 = document.getElementById('addEmployee_image_base64');
+  const rotateSlider = document.getElementById('rotateSlider');
+
+  // Open cropper modal
+  $('#btn_modal_crop_img_staticBackdrop').on('click', () => {
+    $('#modal_crop_img_staticBackdrop_cxzF1f2').modal('show');
+  });
+
+  // Load image
+  fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      image.src = e.target.result;
+      if (cropper) cropper.destroy();
+
+
+      cropper = new Cropper(image, {
+        viewMode: 1,
+        aspectRatio: 1,        // ✅ FORCE 2x2 (square)
+        autoCropArea: 1,
+        movable: true,
+        zoomable: true,
+        rotatable: true,
+        scalable: true,
+        background: false,
+        responsive: true,
+      });
+
+
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Zoom
+  $('#btnZoomIn').on('click', () => cropper && cropper.zoom(0.1));
+  $('#btnZoomOut').on('click', () => cropper && cropper.zoom(-0.1));
+
+  // Reset
+  $('#btnReset').on('click', () => {
+    if (cropper) cropper.reset();
+    rotateSlider.value = 0;
+  });
+
+  // Free rotation
+  rotateSlider.addEventListener('input', function () {
+    if (cropper) cropper.rotateTo(parseFloat(this.value));
+  });
+
+  // Crop & Save
+  $('#btnCrop').on('click', () => {
+    if (!cropper) return;
+    const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
+    const base64 = canvas.toDataURL('image/jpeg', 0.9);
+    preview.src = base64;
+    mainPreview.src = base64;
+    hiddenBase64.value = base64;
+    $('#modal_crop_img_staticBackdrop_cxzF1f2').modal('hide');
+  });
+
+  // Clear
+  $('#btnClear').on('click', () => {
+    if (cropper) cropper.destroy();
+    cropper = null;
+    image.src = '../assets/images/default-picture/user-3-fill.png';
+    preview.src = '../assets/images/default-picture/user-3-fill.png';
+    mainPreview.src = '../assets/images/default-picture/user-3-fill.png';
+    hiddenBase64.value = '';
+    rotateSlider.value = 0;
+    fileInput.value = '';
+  });
+
+  // image id picture ==================================
+
+
+
+  // Cleanup on cropper modal close ========================
+  $('#modal_crop_img_staticBackdrop_cxzF1f2').on('hidden.bs.modal', () => {
+    if (cropper) cropper.destroy();
+    cropper = null;
+    rotateSlider.value = 0;
+  });
+  // Cleanup on cropper modal close ========================
+
+
+
+
+
+    // Submit form ========================================
+$('#form_addemployee_fXf1111').on('submit', function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
+    const $btn = $(form).find('button[type="submit"]');
+
+    $btn.prop('disabled', true).html('<i class="ri-loader-4-line spin"></i> Processing...');
+
+    $.ajax({
+        url: `${APP_API_ENDPOINT}/insert/new_employee_fXf1111`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
+        success(res) {
+            $btn.prop('disabled', false).html('<i class="ri-save-2-fill me-2 fs-5"></i> Save');
+
+            if (res.status !== 'success') {
+                iziToast.error({ title: 'Error', message: res.message, position: 'topRight' });
+                return;
+            }
+
+            $('#modal-add-new-employee_fXf1111').modal('hide');
+            if (cropper) cropper.destroy();
+            form.reset();
+            mainPreview.src = '../assets/images/default-picture/user-3-fill.png';
+            hiddenBase64.value = '';
+
+            iziToast.success({ title: 'Success', message: res.message, position: 'topRight' });
+        },
+        error(err) {
+            $btn.prop('disabled', false).html('<i class="ri-save-2-fill me-2 fs-5"></i> Save');
+            iziToast.error({ title: 'Error', message: err.responseJSON?.message || 'Something went wrong.', position: 'topRight' });
+        }
+    });
+});
+
+
+  // Submit form ========================================
+
+
+
+});
+</script>
+

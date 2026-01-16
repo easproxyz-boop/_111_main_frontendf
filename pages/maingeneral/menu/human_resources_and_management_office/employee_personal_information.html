@@ -1,0 +1,238 @@
+<style>
+#table_employee_profile_info_fXf1111 th:last-child,
+#table_employee_profile_info_fXf1111 td:last-child{
+  position:sticky;
+  right:0;
+  background:#0000009f;
+  z-index:2;
+}
+
+#table_employee_profile_info_fXf1111 thead th{
+  position:sticky;
+  top:0;
+  z-index:3;
+}
+#table_employee_profile_info_fXf1111 thead th:last-child{
+  z-index:4;
+}
+</style>
+
+
+<div id="modal_staticBackdrop-fXf1111-addemployee"></div>
+<div id="modal_staticBackdrop-fXf1111-updateemployee"></div>
+
+<script>
+  $(document).ready(function() {
+    $('#modal_staticBackdrop-fXf1111-addemployee').load('../../modal/human_resources_management_office/employee/add.html');
+    $('#modal_staticBackdrop-fXf1111-updateemployee').load('../../modal/human_resources_management_office/employee/update.html');
+  });
+</script>
+
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Eastern Samar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Human Resources and Management Office</li>
+    <li class="breadcrumb-item active" aria-current="page">Employee Personal Information</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <select class="form-select w-auto" id="select_latest_table_employee_fXf1111">
+          <option value="LATEST" selected>LATEST</option>
+          <option value="ALL">ALL</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <!-- Updated button to correctly trigger modal -->
+        <button type="button" class="btn btn-primary float-end fw-semibold" 
+                id="btn-add-employee" 
+                data-bs-toggle="modal" 
+                data-bs-target="#modal-add-new-employee_fXf1111">
+          <i class="ri-add-large-fill me-1"></i> Add New Employee
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body m-0 p-0">
+    <div class="table-responsive">
+      <table id="table_employee_profile_info_fXf1111" class="table table-bordered table-striped text-nowrap w-100">
+        <thead class="table-primary">
+          <tr>
+            <th class="text-center">No. <br> &nbsp; </th>
+            <th class="text-center">Date Added <br> &nbsp; </th>
+            <th class="text-center">Modification type <br> &nbsp; </th>
+            <th class="text-center">Current Status <br> &nbsp; </th>
+            <th class="text-center">Date Start <br>(YYYY-MM-DD) </th>
+            <th class="text-center">Date End <br>(YYYY-MM-DD) </th>
+            <th class="text-center">Employee Type <br> &nbsp; </th>
+            <th class="text-center">QR Code <br> &nbsp; </th>
+            <th class="text-center">ID Photo <br> &nbsp; </th>
+
+            <th class="text-center">Employee ID <br> &nbsp; </th>
+            <th class="text-center">Name <br> &nbsp; </th>
+            <th class="text-center">Date of Birth <br> &nbsp; </th>
+            <th class="text-center">Sex <br> &nbsp; </th>
+            <th class="text-center">Present Address <br> &nbsp; </th>
+            <th class="text-center">Permanent Address <br> &nbsp; </th>
+            <th class="text-center">Office <br> &nbsp; </th>
+            <th class="text-center">Designation <br> &nbsp; </th>
+            <th class="text-center">Salary Grade <br> &nbsp; </th>
+            <th class="text-center text-white">Action <br> &nbsp; </th>
+          </tr>
+          <tr>
+            <!-- Column search inputs -->
+            <th></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th></th>
+            <th></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+
+  const table = $('#table_employee_profile_info_fXf1111').DataTable({
+    serverSide: true,
+    processing: true,
+    orderCellsTop: true,
+    pageLength: 10,
+
+    ajax: {
+      url: APP_API_ENDPOINT + '/table/employee/fXf1111/profile_information',
+      type: 'POST',
+      data: d => {
+        // Include showType in request
+        d.showType = $('#select_latest_table_employee_fXf1111').val();
+        return d; // Must return the modified object
+      },
+      xhrFields: { withCredentials: true }
+    },
+
+    columns: [
+      // Row index
+      { data: null, render: (d, t, r, m) => m.row + m.settings._iDisplayStart + 1 },
+
+      { data: 'dt_date_added' },
+      {
+        data: 'dt_modification_type',
+        render: d =>
+          `<span class="badge ${
+            d === 'EDITED' ? 'bg-warning text-dark' :
+            d === 'REMOVED' ? 'bg-danger' :
+            'bg-info'
+          }">${d}</span>`
+      },
+      { data: 'dt_current_status' },
+      { data: 'dt_employement_info_employment_start_date' },
+      { data: 'dt_employement_info_employment_end_date' },
+      { data: 'dt_employement_info_employement_status' },
+      
+      // QR canvas
+      { 
+        data: 'dt_employee_id', 
+        orderable: false, 
+        searchable: false, 
+        render: id => `<canvas id="qr_${id}" width="60" height="60"></canvas>` 
+      },
+      {
+        data: 'dt_id_photo',
+        render: data => {
+          let src = data !== 'NONE'
+            ? data.replace(/\.jxl$/i, '.jpeg')   // convert .jxl → .jpeg
+            : 'assets/images/default-picture/user-3-fill.png';
+          return `<img src="${src}" class="border border-2 border-dark" alt="ID Photo" width="65" height="65">`;
+        }
+      },
+      { data: 'dt_employee_id' },
+      { data: 'employee_name', orderable: false, searchable: false },
+      { data: 'employee_dateofbirth' },
+      { data: 'dt_sex' },
+      { data: 'employee_present_address' },
+      { data: 'employee_permanent_address' },
+      { data: 'dt_employement_info_office_department' },
+      { data: 'dt_employement_info_designation_position_title' },
+
+      {
+        data: 'dt_employement_info_salary_grade',
+        render: data => `<div>SG ${data}</div>`
+      },
+
+
+      { data: 'action', orderable: false, searchable: false }
+    ],
+
+    order: [[1, 'desc']]
+  });
+
+  // --- Column search ---
+  $('#table_employee_profile_info_fXf1111 thead input').on('keyup change', function () {
+    const colIndex = $(this).closest('th').index();
+    table.column(colIndex).search(this.value).draw();
+  });
+
+  // --- ShowType filter ---
+  $('#select_latest_table_employee_fXf1111').on('change', () => {
+    table.ajax.reload(null, false);
+  });
+
+  // --- QR Generation ---
+  table.on('draw', function () {
+    table.rows({ page: 'current' }).every(function () {
+      const row = this.data();
+      const canvas = document.getElementById(`qr_${row.dt_employee_id}`);
+      if (canvas && !canvas.dataset.qr) {
+        new QRious({ element: canvas, value: row.dt_employee_id, size: 60, level: 'H' });
+        canvas.dataset.qr = "1";
+      }
+    });
+  });
+
+  // --- Socket logic ---
+  const socket = io(APP_API_ENDPOINT, { withCredentials: true });
+  socket.emit('join_room_table_employee_profile_info_fXf1111', 'table_employee_profile_info_fXf1111');
+
+  socket.on('refresh_table_employee_profile_info_fXf1111', () => table.ajax.reload(null, false));
+
+  window.addEventListener("beforeunload", () => {
+    if (socket.connected) socket.disconnect();
+  });
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+

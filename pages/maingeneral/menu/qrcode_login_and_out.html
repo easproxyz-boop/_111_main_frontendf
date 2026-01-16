@@ -98,8 +98,12 @@ $(document).ready(function () {
     const action=$("#loginLogoutSelect").val(); const period=$("#ampmSelect").val();
     if(!action || !period){ $("#scanMessage").text("Please select LOGIN/LOGOUT and AM/PM"); return false; }
     const now=getPHTime(); const h=now.getHours(), m=now.getMinutes(); let msg="", allow=true;
+
+/* 
     if(period==='AM'){ if(action==='LOGIN' && (h<6||(h===6 && m<30)||h>=9)){ allow=false; msg="AM LOGIN allowed 6:30–9:00"; } if(action==='LOGOUT'){ allow=false; msg="12 PM LOGOUT only"; } }
-    if(period==='PM'){ if(action==='LOGIN' && ((h===12&&m<30)||h>=14)){ allow=false; msg="PM LOGIN allowed 12:30–2:00"; } if(action==='LOGOUT' && h<16){ allow=false; msg="PM LOGOUT allowed after 6:00 PM"; } }
+    if(period==='PM'){ if(action==='LOGIN' && ((h===12&&m<30)||h>=14)){ allow=false; msg="PM LOGIN allowed 12:30–2:00"; } if(action==='LOGOUT' && h<17){ allow=false; msg="PM LOGOUT allowed after 5:00 PM"; } }
+
+     */
     $("#scanMessage").text(msg); return allow;
   }
 

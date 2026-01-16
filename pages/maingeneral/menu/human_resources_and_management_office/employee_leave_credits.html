@@ -1,0 +1,155 @@
+<style>
+#table_employee_leave_credits_FFQ999 thead tr {
+  position: sticky;
+  top: 80px;        /* height ng navbar (adjust kung mas mataas) */
+  z-index: 3;
+  background: #fff;
+}
+
+
+</style>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Eastern Samar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Human Resources and Management Office</li>
+    <li class="breadcrumb-item active" aria-current="page">Leave Credits</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="select_employee_leave_credits_employee_id">Employee ID</label>
+        <input type="text" id="select_employee_leave_credits_employee_id" class="form-control" placeholder="Employee ID">
+      </div>
+      <div class="col-md-3">
+        <label for="select_employee_leave_credits_year">Year</label>
+        <select class="form-select" id="select_employee_leave_credits_year">
+          <option value="" selected>--SELECT--</option>
+          <option value="ALL">ALL YEAR</option>
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="select_employee_leave_credits_month">Month</label>
+        <select class="form-select" id="select_employee_leave_credits_month">
+          <option value="" selected>--SELECT--</option>
+          <option value="ALL">ALL MONTH</option>
+          <option value="1">JAN</option>
+          <option value="2">FEB</option>
+          <option value="3">MAR</option>
+          <option value="4">APR</option>
+        </select>
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button id="btn_load_leave_credits" class="btn btn-primary w-100">Load Leave Credits</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    
+
+<table id="table_employee_leave_credits_FFQ999" class=" table-bordered table-striped text-nowrap">
+  <thead class="table-primary">
+    <tr>
+      <th>Date</th>
+      <th>-</th>
+      <th>AM Login</th>
+      <th>AM Logout</th>
+      <th>PM Login</th>
+      <th>PM Logout</th>
+      <th>AM Hours</th>
+      <th>PM Hours</th>
+      <th>Total Hours</th>
+      <th>Earned VL</th>
+      <th>Earned SL</th>
+    </tr>
+  </thead>
+  <tfoot class="table-secondary">
+    <tr>
+      <th colspan="6" style="text-align:right">TOTAL:</th>
+      <th id="total_am_hours"></th>
+      <th id="total_pm_hours"></th>
+      <th id="total_hours"></th>
+      <th id="total_earned_vl"></th>
+      <th id="total_earned_sl"></th>
+    </tr>
+  </tfoot>
+  <tbody></tbody>
+</table>
+
+  </div>
+</div>
+
+
+
+
+<script>
+$(document).ready(function() {
+  let table = $('#table_employee_leave_credits_FFQ999').DataTable({
+    serverSide: true,
+    processing: true,
+    ajax: {
+      url: APP_API_ENDPOINT + '/api/employee-leave-daily',
+      type: 'POST',
+      data: function(d) {
+        d.employee_id = $('#select_employee_leave_credits_employee_id').val();
+        d.year = $('#select_employee_leave_credits_year').val();
+        d.month = $('#select_employee_leave_credits_month').val();
+      }
+    },
+    columns: [
+      {
+        data: null,
+        render: function (data, type, row) {
+          return row.date + ' | ' + row.weekday_status;
+        }
+      },
+      { 
+        data: 'weekend_status',
+        render: function (data, type, row) {
+          let ssS = row.weekend_status === 'WEEKEND' ? 'text-danger' : '';
+          return `<span class="${ssS}">${row.weekend_status}</span>`;
+        }
+      },
+      { data: 'am_login' },
+      { data: 'am_logout' },
+      { data: 'pm_login' },
+      { data: 'pm_logout' },
+      { data: 'am_hours' },
+      { data: 'pm_hours' },
+      { data: 'total_hours' },
+      { data: 'earned_vl' },
+      { data: 'earned_sl' }
+    ],
+    pageLength: 31,
+    lengthMenu: [31, 50, 100],
+    footerCallback: function (row, data, start, end, display) {
+      let api = this.api();
+
+      const sumColumn = (colIndex) => 
+        api
+          .column(colIndex, { page: 'current' })
+          .data()
+          .reduce((a, b) => a + parseFloat(b || 0), 0)
+          .toFixed(2);
+
+      $('#total_am_hours').html(sumColumn(6));
+      $('#total_pm_hours').html(sumColumn(7));
+      $('#total_hours').html(sumColumn(8));
+      $('#total_earned_vl').html(sumColumn(9));
+      $('#total_earned_sl').html(sumColumn(10));
+    }
+  });
+
+  $('#btn_load_leave_credits').on('click', function() {
+    table.ajax.reload();
+  });
+});
+</script>
+

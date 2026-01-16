@@ -1,0 +1,434 @@
+<style>
+#table_employee_attendance_log_YYiQ51 th:last-child,
+#table_employee_attendance_log_YYiQ51 td:last-child{
+  position:sticky;
+  right:0;
+  background:#0000009f;
+  z-index:2;
+}
+
+#table_employee_attendance_log_YYiQ51 thead th{
+  position:sticky;
+  top:0;
+  z-index:3;
+}
+#table_employee_attendance_log_YYiQ51 thead th:last-child{
+  z-index:4;
+}
+</style>
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Eastern Samar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Human Resources and Management Office</li>
+    <li class="breadcrumb-item active" aria-current="page">Attendance Log</li>
+  </ol>
+</nav>
+
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <select class="form-select w-auto" id="select_latest_table_employee_attendance_log_YYiQ51">
+          <option value="LATEST" selected>LATEST</option>
+          <option value="ALL">ALL</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body m-0 p-0">
+    <div class="table-responsive">
+      <table id="table_employee_attendance_log_YYiQ51" class="table table-bordered table-striped text-nowrap w-100">
+        <thead class="table-primary">
+          <tr>
+            <th class="text-center">No. <br> &nbsp; </th>
+            <th class="text-center">Date Added <br> &nbsp; </th>
+            <th class="text-center">Modification type <br> &nbsp; </th>
+            <th class="text-center">Current Status <br> &nbsp; </th> 
+            <th class="text-center">Login / Logout <br> &nbsp; </th>
+            <th class="text-center">Date <br> <small>(YYYY-MM-DD)</small> </th>
+            <th class="text-center">Time <br> <small>(HH:MM:SS)</small> </th>
+            <th class="text-center">AM / PM <br> &nbsp; </th> 
+            <th class="text-center">Captured <br> Attendance </th>
+            <th class="text-center">ID Photo <br> &nbsp; </th>
+            <th class="text-center">Employee Status <br> &nbsp; </th>
+            <th class="text-center">Name <br> &nbsp; </th>
+            <th class="text-center">Office <br> &nbsp; </th>
+            <th class="text-center text-white">Action <br> &nbsp; </th>
+          </tr>
+          <tr>
+            <!-- Column search inputs -->
+            <th></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th><input class="form-control form-control-sm text-uppercase" placeholder="Search"></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+
+  const table = $('#table_employee_attendance_log_YYiQ51').DataTable({
+    serverSide: true,
+    processing: true,
+    orderCellsTop: true,
+    pageLength: 10,
+
+    ajax: {
+      url: APP_API_ENDPOINT + '/table/human_resources_and_management_office/YYiQ51/employee_attendance_log',
+      type: 'POST',
+      data: d => {
+        d.showType = $('#select_latest_table_employee_attendance_log_YYiQ51').val();
+        return d;
+      },
+      xhrFields: { withCredentials: true }
+    },
+
+    columns: [
+      // 1. No.
+      { data: null, render: (d, t, r, m) => m.row + m.settings._iDisplayStart + 1 },
+
+      // 2. Date Added
+      { data: 'dt_date_added' },
+
+      // 3. Modification type
+      {
+        data: 'dt_modification_type',
+        render: (d, type, row) =>
+          `<span class="badge ${
+            d === 'EDITED' ? 'bg-warning text-dark' :
+            d === 'REMOVED' ? 'bg-danger' :
+            'bg-info'
+          }">${d}</span>
+          <span class="badge
+          ${ row.updated_status === 'UPDATED' ? 'bg-success text-white' :
+          row.updated_status === 'OLD' ? 'bg-secondary' : ''}">
+            ${row.updated_status || ''}
+          </span>
+          
+          `
+      },
+
+      // 4. Current Status
+      { data: 'dt_current_status' },
+
+      // 5. Login / Logout
+      { data: 'dt_scan_login_out_status' },
+
+      // 6. Date
+      { data: 'scan_date' },
+
+      // 7. Time
+      { data: 'scan_time' },
+
+      // 8. AM / PM
+      { data: 'dt_scan_am_pm_status' },
+
+      // 9. Captured Attendance
+      {
+        data: 'dt_scan_photo',
+        className: 'text-center',
+        render: d => {
+          const src = d && d !== 'NONE'
+            ? d
+            : 'assets/images/default-picture/user-3-fill.png';
+          return `<img src="${src}" width="80" height="80" class="border">`;
+        }
+      },
+
+      // 10. ID Photo
+      {
+        data: 'dt_employee_id_photo',
+        className: 'text-center',
+        render: d => {
+          const src = d && d !== 'NONE'
+            ? d.replace(/\.jxl$/i, '.jpeg')
+            : 'assets/images/default-picture/user-3-fill.png';
+          return `<img src="${src}" width="80" height="80" class="border">`;
+        }
+      },
+
+      // 11. Employee Status
+      { data: 'dt_employee_status' },
+
+      // 12. Name
+      { data: 'employee_name' },
+
+      // 13. Office
+      { data: 'dt_employement_info_office_department' },
+
+      // 14. Action
+      { data: 'action', orderable: false, searchable: false }
+    ],
+
+    order: [[1, 'desc']]
+  });
+
+  // --- Column search ---
+  $('#table_employee_attendance_log_YYiQ51 thead input').on('keyup change', function () {
+    const colIndex = $(this).closest('th').index();
+    table.column(colIndex).search(this.value).draw();
+  });
+
+  // --- ShowType filter ---
+  $('#select_latest_table_employee_attendance_log_YYiQ51').on('change', () => {
+    table.ajax.reload(null, false);
+  });
+
+  // --- QR Generation ---
+  table.on('draw', function () {
+    table.rows({ page: 'current' }).every(function () {
+      const row = this.data();
+      const canvas = document.getElementById(`qr_${row.dt_employee_id}`);
+      if (canvas && !canvas.dataset.qr) {
+        new QRious({ element: canvas, value: row.dt_employee_id, size: 60, level: 'H' });
+        canvas.dataset.qr = "1";
+      }
+    });
+  });
+
+  // --- Socket logic ---
+  const socket = io(APP_API_ENDPOINT, { withCredentials: true });
+  socket.emit('join_room_table_employee_attendance_log_YYiQ51', 'table_employee_attendance_log_YYiQ51');
+
+  socket.on('refresh_table_employee_attendance_log_YYiQ51', () => table.ajax.reload(null, false));
+
+  window.addEventListener("beforeunload", () => {
+    if (socket.connected) socket.disconnect();
+  });
+
+});
+</script>
+
+
+
+
+<form id="form_update_attendance_log_YYiQ51">
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop-modal-attendance-log-YYiQ51" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop-modal-attendance-log-YYiQ51Label" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h1 class="modal-title fs-5" id="staticBackdrop-modal-attendance-log-YYiQ51Label">Adjust Attendance</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <input type="hidden" name="update_attendancelog_num" id="update_attendancelog_num" readonly>
+        <input type="hidden" name="update_attendancelog_attendance_id" id="update_attendancelog_attendance_id" readonly>
+        <div class="card mb-2">
+            <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">Photo</h1>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <img src="" id="update_img_attendancelog_id_photo" alt="" srcset="" width="130" height="130">
+                        <p class="fw-semibold">ID Photo</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="" id="update_img_attendancelog_scan_photo" alt="" srcset="" width="130" height="130">
+                        <p class="fw-semibold">Scan Photo (Attendance Captured)</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h1 class="fs-5 m-0">Attendance Log</h1>          
+            </div>
+            <div class="card-body">
+
+                <div class="row mb-2">
+                    <div class="col-md-2">
+          
+                                <label for="update_attendancelog_login_and_logout_status" class="form-label">Login / Logout Status</label>
+                                <select class="form-select fw-semibold text-uppercase bg-light text-dark" id="update_attendancelog_login_and_logout_status" name="update_attendancelog_login_and_logout_status" required>
+                                <option value="" disabled selected>--SELECT--</option>
+                                <option value="LOGIN">LOGIN</option>
+                                <option value="LOGOUT">LOGOUT</option>
+                                </select>
+                    </div>
+                    <div class="col-md-2">
+          
+                                <label for="update_attendancelog_am_and_pm_status" class="form-label">AM / PM Status</label>
+                                <select class="form-select fw-semibold text-uppercase bg-light text-dark" id="update_attendancelog_am_and_pm_status" name="update_attendancelog_am_and_pm_status" required>
+                                <option value="" disabled selected>--SELECT--</option>
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                                </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_attendancelog_time_date" class="form-label">Date (YYYY-MM-DD) </label>
+                        <input type="text" style="cursor: not-allowed;" class="form-control fw-semibold text-uppercase bg-secondary " id="update_attendancelog_time_date" name="update_attendancelog_time_date" maxlength="10" placeholder="E,G,. (YYYY-MM-DD)" required readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_attendancelog_time_hours" class="form-label">Time (Hours) </label>
+                        <input type="text" class="form-control fw-semibold text-uppercase bg-light text-dark" id="update_attendancelog_time_hours" name="update_attendancelog_time_hours" maxlength="2" placeholder="00" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_attendancelog_time_minutes" class="form-label">Time (Minutes) </label>
+                        <input type="text" class="form-control fw-semibold text-uppercase bg-light text-dark" id="update_attendancelog_time_minutes" name="update_attendancelog_time_minutes" maxlength="2" placeholder="00" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="update_attendancelog_time_seconds" class="form-label">Time (Seconds) </label>
+                        <input type="text" class="form-control fw-semibold text-uppercase bg-light text-dark" id="update_attendancelog_time_seconds" name="update_attendancelog_time_seconds" maxlength="2" placeholder="00" required>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary w-100"><i class="ri-save-2-fill me-2 fs-5"></i> Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<script>
+    //submit ======================
+$(function () {
+
+$('#form_update_attendance_log_YYiQ51').on('submit', function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const $btn = $(form).find('button[type="submit"]');
+    $btn.prop('disabled', true).html('<i class="ri-loader-4-line spin"></i> Processing...');
+
+    // Convert form to JSON
+    const formDataObj = Object.fromEntries(new FormData(form).entries());
+    formDataObj.update_attendancelog_num = parseInt(formDataObj.update_attendancelog_num, 10);
+
+    $.ajax({
+        url: `${APP_API_ENDPOINT}/update/hr/YYiQ51/attendance_log`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formDataObj),
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
+        success(res) {
+            $btn.prop('disabled', false).html('<i class="ri-save-2-fill me-2 fs-5"></i> Save Changes');
+            if (res.status !== 'success') {
+                iziToast.error({ title: 'Error', message: res.message, position: 'topRight' });
+                return;
+            }
+            $('#staticBackdrop-modal-attendance-log-YYiQ51').modal('hide');
+            iziToast.success({ title: 'Success', message: res.message, position: 'topRight' });
+        },
+        error(err) {
+            $btn.prop('disabled', false).html('<i class="ri-save-2-fill me-2 fs-5"></i> Save Changes');
+            iziToast.error({ title: 'Error', message: err.responseJSON?.message || 'Something went wrong.', position: 'topRight' });
+        }
+    });
+});
+
+});
+</script>
+
+
+
+
+<script>
+  $(document).on('click', '#btn-modal-employee-attendance-log-YYiQ51', function () {
+    const xnum = $(this).data('num');
+    $('#staticBackdrop-modal-attendance-log-YYiQ51').modal('show');
+    $('#form_update_attendance_log_YYiQ51')[0].reset();
+    $.ajax({
+      url: `${APP_API_ENDPOINT}/getdata/hr/employee_biometrix_scan_login_and_logout`,
+      type: 'POST',
+      data: { xnum },
+      dataType: 'json',
+      success: function (res) {
+        if (res.status !== 'success') {
+          alert(res.message || 'Employee not found');
+          $('#modal-update-new-employee_fXf1111').modal('hide');
+          return;
+        }
+        const d = res.data;
+        // --------------------
+        // Image
+        // --------------------
+        $('#update_attendancelog_num').val(d.dt_num);
+
+        const imgSrcIdPhoto = d.dt_employee_id_photo && d.dt_employee_id_photo !== 'NONE'
+          ? d.dt_employee_id_photo.replace(/\.jxl$/i, '.jpeg')
+          : './assets/images/default-picture/user-3-fill.png';
+        $('#update_img_attendancelog_id_photo').attr('src', imgSrcIdPhoto);
+        const imgSrcScanPhoto = d.dt_scan_photo && d.dt_scan_photo !== 'NONE'
+          ? d.dt_scan_photo.replace(/\.jxl$/i, '.jpeg')
+          : './assets/images/default-picture/user-3-fill.png';
+        $('#update_img_attendancelog_scan_photo').attr('src', imgSrcScanPhoto);
+
+
+        $('#update_attendancelog_login_and_logout_status').val(d.dt_scan_login_out_status).trigger('change');
+        $('#update_attendancelog_am_and_pm_status').val(d.dt_scan_am_pm_status).trigger('change');
+
+
+        // Split date and time
+        const [date, time] = d.dt_scan_capture_time.split(" ");
+        // Split time into HH, MM, SS
+        const [hour, minute, second] = time.split(":");
+
+        $('#update_attendancelog_time_date').val(date);
+        $('#update_attendancelog_time_hours').val(hour);
+        $('#update_attendancelog_time_minutes').val(minute);
+        $('#update_attendancelog_time_seconds').val(second);
+
+        $('#update_attendancelog_attendance_id').val(d.dt_attendance_id);
+
+      },
+      error: function(xhr) {
+        console.error(xhr.responseText);
+        alert('Server error');
+        $('#modal-update-new-employee_fXf1111').modal('hide');
+      }
+    });
+
+  });
+</script>
+
+
+

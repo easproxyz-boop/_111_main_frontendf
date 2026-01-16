@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vite_es_capitol_system</title>
+  </head>
+  <body>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Country Select CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/css/countrySelect.min.css">
+
+<!-- Country Select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/js/countrySelect.min.js"></script>
+
+
+
+<select id="province" class="form-select">
+  <option value="">-- Select Province --</option>
+</select>
+
+<select id="city" class="form-select">
+  <option value="">-- Select City/Municipality --</option>
+</select>
+
+<select id="barangay" class="form-select">
+  <option value="">-- Select Barangay --</option>
+</select>
+
+
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+    // Load the Philippine address JSON (provinces -> cities -> barangays)
+    $.getJSON('philippines.json', function(data) {
+        // Populate provinces
+        $.each(data.provinces, function(i, province) {
+            $('#province').append(`<option value="${province.name}">${province.name}</option>`);
+        });
+
+        // On province change
+        $('#province').change(function() {
+            const provinceName = $(this).val();
+            $('#city').html('<option value="">-- Select City/Municipality --</option>');
+            $('#barangay').html('<option value="">-- Select Barangay --</option>');
+
+            const province = data.provinces.find(p => p.name === provinceName);
+            if (province) {
+                $.each(province.cities, function(i, city) {
+                    $('#city').append(`<option value="${city.name}">${city.name}</option>`);
+                });
+            }
+        });
+
+        // On city change
+        $('#city').change(function() {
+            const provinceName = $('#province').val();
+            const cityName = $(this).val();
+            $('#barangay').html('<option value="">-- Select Barangay --</option>');
+
+            const province = data.provinces.find(p => p.name === provinceName);
+            if (province) {
+                const city = province.cities.find(c => c.name === cityName);
+                if (city) {
+                    $.each(city.barangays, function(i, barangay) {
+                        $('#barangay').append(`<option value="${barangay}">${barangay}</option>`);
+                    });
+                }
+            }
+        });
+    });
+});
+
+</script>
+
+
+
+
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

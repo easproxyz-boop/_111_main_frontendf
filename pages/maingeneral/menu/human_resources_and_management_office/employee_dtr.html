@@ -1,0 +1,485 @@
+<style>
+/* Legal size wrapper */
+.print-wrapper {
+  width: 14in;      
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  color: #000;
+}
+
+/* Each DTR table column */
+.dtr-column {
+  width: 49%;
+}
+
+/* Table font for printing */
+table {
+  font-size: 12px;
+}
+
+/* Print styles */
+@media print {
+  body * { visibility: hidden; }
+
+  #print_wrapper_employee_dtr_double,
+  #print_wrapper_employee_dtr_double * { visibility: visible; }
+
+  #print_wrapper_employee_dtr_double {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    page-break-after: auto;
+  }
+}
+</style>
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Eastern Samar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Human Resources and Management Office</li>
+    <li class="breadcrumb-item active" aria-current="page">Daily Time Record</li>
+  </ol>
+</nav>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="employee_id">Employee ID</label>
+        <input type="text" id="employee_id" class="form-control" placeholder="Employee ID">
+      </div>
+      <div class="col-md-3">
+        <label for="select_employee_dtr_year">Employee DTR Year</label>
+        <select class="form-select w-100" id="select_employee_dtr_year">
+          <option value="" selected>--SELECT--</option>
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="select_employee_dtr_month">Employee DTR Month</label>
+        <select class="form-select w-100" id="select_employee_dtr_month">
+          <option value="" selected>--SELECT--</option>
+          <option value="1">JANUARY</option>
+          <option value="2">FEBRUARY</option>
+          <option value="3">MARCH</option>
+          <option value="4">APRIL</option>
+          <option value="5">MAY</option>
+          <option value="6">JUNE</option>
+          <option value="7">JULY</option>
+          <option value="8">AUGUST</option>
+          <option value="9">SEPTEMBER</option>
+          <option value="10">OCTOBER</option>
+          <option value="11">NOVEMBER</option>
+          <option value="12">DECEMBER</option>
+        </select>
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button id="btn_load_dtr" class="btn btn-primary w-100">Load DTR</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="print-wrapper w-80" id="print_wrapper_employee_dtr_double">
+      <div class="row p-0 m-0">
+
+        <!-- Left DTR Table -->
+        <div class="col-md-6 mb-3">
+          <div id="print_form_content_employee_dtr_11">
+            <table class="border border-1 border-dark bg-light p-0 m-0 w-100">
+              <thead>
+                <tr>
+                  <td colspan="7">
+                    <div class="row px-1">
+                      <div class="col"><p class="frmDTR_font_1 p-0">Civil Service Form No. 48</p></div>
+                      <div class="col">
+                        <div class="d-flex justify-content-end">
+                          <span class="frmDTR_font_1 p-0">Employee ID:</span>
+                          <span class="frmDTR_font_1 fw-bold p-0 ff_idno1"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="border-bottom border-dark align-middle">
+                  <td colspan="7">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <img class="dtr_icon_esamarlogo text-center ms-4" 
+                           src="./assets/images/logo/provincial-capitol-logo.png" 
+                           style="width: 60px;">
+                      <div class="text-center">
+                        <p class="fw-bold p-0 m-0 frmDTR_font_2">DAILY TIME RECORD</p>
+                        <p class="fw-bold text-decoration-underline p-0 m-0 frmDTR_font_2 ff_name">...</p>
+                      </div>
+                      <div style="width: 90px;"></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="border-bottom border-dark">
+                  <td colspan="7">
+                    <p class="frmDTR_font_1 m-0 p-1">
+                      <span class="frmDTR_font_1 text-start">For the month of</span> 
+                      <i class="frmDTR_font_1 text-decoration-underline fw-bold" id="dtr_month_year_1">...</i>
+                    </p>
+                    <p class="px-1 my-0 py-0">
+                      <span class="frmDTR_font_1">Work Schedule:</span> 
+                      <i class="frmDTR_font_1">Mon-Fri 08:00am-12:00pm 01:00pm-05:00pm</i>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark p-0" rowspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">DAY</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">AM</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">PM</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">UNDERTIME</p></td>
+                </tr>
+                <tr>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Arrival</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Departure</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Arrival</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Departure</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Hours</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Min</p></td>
+                </tr>
+              </thead>
+              <tbody class="dtr_table_body_double"></tbody>
+              <tfoot>
+                <tr>
+                  <td class="border border-dark" colspan="7">
+                    <p class="frmDTR_font_1 text-center m-0 p-0 mb-5">
+                      I CERTIFY on my honor that the above is a true and Correct <br>
+                      report of the hours of work performed, record of which was <br>
+                      made daily at the time of arrival and departure from office.
+                    </p>
+                    <p class="frmDTR_font_2 fw-bold p-0 m-0 text-center text-decoration-underline ff_name">...</p>
+                    <p class="frmDTR_font_1 text-center m-0 p-0">Employee Signature</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark" colspan="7">
+                    <p class="frmDTR_font_1 text-start m-0 mb-5">VERIFIED as to the prescribed office hours</p>
+                    <p class="office_headx frmDTR_font_2 text-center m-0 p-0 fw-bold">...</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark" colspan="7"><p class="office_name_1 frmDTR_font_1 text-center m-0 p-0">...</p></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right DTR Table -->
+        <div class="col-md-6 mb-3">
+          <div id="print_form_content_employee_dtr_22">
+            <table class="border border-1 border-dark bg-light p-0 m-0 w-100">
+              <thead>
+                <tr>
+                  <td colspan="7">
+                    <div class="row px-1">
+                      <div class="col"><p class="frmDTR_font_1 p-0">Civil Service Form No. 48</p></div>
+                      <div class="col">
+                        <div class="d-flex justify-content-end">
+                          <span class="frmDTR_font_1 p-0">Employee ID:</span>
+                          <span class="frmDTR_font_1 fw-bold p-0 ff_idno2"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="border-bottom border-dark align-middle">
+                  <td colspan="7">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <img class="dtr_icon_esamarlogo text-center ms-4" 
+                           src="./assets/images/logo/provincial-capitol-logo.png" 
+                           style="width: 60px;">
+                      <div class="text-center">
+                        <p class="fw-bold p-0 m-0 frmDTR_font_2">DAILY TIME RECORD</p>
+                        <p class="fw-bold text-decoration-underline p-0 m-0 frmDTR_font_2 ff_name">...</p>
+                      </div>
+                      <div style="width: 90px;"></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="border-bottom border-dark">
+                  <td colspan="7">
+                    <p class="frmDTR_font_1 m-0 p-1">
+                      <span class="frmDTR_font_1 text-start">For the month of</span> 
+                      <i class="frmDTR_font_1 text-decoration-underline fw-bold" id="dtr_month_year_2">...</i>
+                    </p>
+                    <p class="px-1 my-0 py-0">
+                      <span class="frmDTR_font_1">Work Schedule:</span> 
+                      <i class="frmDTR_font_1">Mon-Fri 08:00am-12:00pm 01:00pm-05:00pm</i>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark p-0" rowspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">DAY</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">AM</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">PM</p></td>
+                  <td class="border border-dark p-0" colspan="2"><p class="frmDTR_font_1 text-center fw-bold p-0 m-0">UNDERTIME</p></td>
+                </tr>
+                <tr>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Arrival</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Departure</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Arrival</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Departure</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Hours</p></td>
+                  <td class="border border-dark"><p class="frmDTR_font_0 text-center fw-bold p-0 m-0">Min</p></td>
+                </tr>
+              </thead>
+              <tbody class="dtr_table_body_double"></tbody>
+              <tfoot>
+                <tr>
+                  <td class="border border-dark" colspan="7">
+                    <p class="frmDTR_font_1 text-center m-0 p-0 mb-5">
+                      I CERTIFY on my honor that the above is a true and Correct <br>
+                      report of the hours of work performed, record of which was <br>
+                      made daily at the time of arrival and departure from office.
+                    </p>
+                    <p class="frmDTR_font_2 fw-bold p-0 m-0 text-center text-decoration-underline ff_name">...</p>
+                    <p class="frmDTR_font_1 text-center m-0 p-0">Employee Signature</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark" colspan="7">
+                    <p class="frmDTR_font_1 text-start m-0 mb-5">VERIFIED as to the prescribed office hours</p>
+                    <p class="office_headx frmDTR_font_2 text-center m-0 p-0 fw-bold">...</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-dark" colspan="7"><p class="office_name_1 frmDTR_font_1 text-center m-0 p-0">...</p></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+      </div> <!-- end row -->
+    </div> <!-- end print-wrapper -->
+  </div> <!-- end card-body -->
+</div> <!-- end card -->
+
+
+<script>
+
+$(document).ready(function () {
+
+// =======================
+// DATE HELPERS
+// =======================
+function getDaysInMonth(year, month) {
+    const date = new Date(year, month - 1, 1);
+    const days = [];
+    const weekdayShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    while (date.getMonth() === month - 1) {
+        days.push({
+            dayNumber: date.getDate(),
+            weekday: weekdayShort[date.getDay()]
+        });
+        date.setDate(date.getDate() + 1);
+    }
+    return days;
+}
+
+// =======================
+// TIME HELPERS
+// =======================
+function parseTime(timeStr) {
+    if (!timeStr) return null;
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m; // minutes only
+}
+
+// Clamp time inside allowed range
+function clampTime(time, min, max) {
+    if (time < min) return min;
+    if (time > max) return max;
+    return time;
+}
+
+// =======================
+// STRICT WORKING HOURS
+// =======================
+const AM_START = 8 * 60;   // 08:00
+const AM_END   = 12 * 60;  // 12:00
+const PM_START = 13 * 60;  // 13:00
+const PM_END   = 17 * 60;  // 17:00
+
+// =======================
+// DURATION CALCULATOR
+// =======================
+function calculateSession(arrival, departure, startLimit, endLimit) {
+    const a = parseTime(arrival);
+    const d = parseTime(departure);
+
+    if (a === null || d === null) return 0;
+
+    // Clamp inside allowed window
+    const start = clampTime(a, startLimit, endLimit);
+    const end   = clampTime(d, startLimit, endLimit);
+
+    const diff = end - start;
+    return diff > 0 ? diff : 0;
+}
+
+// =======================
+// BUILD TABLE
+// =======================
+function buildTableHtml(days, dtrMap) {
+    let html = '';
+    let totalMonthMinutes = 0;
+
+    days.forEach(d => {
+        const r = dtrMap[d.dayNumber] || {};
+
+        // ---- STRICT AM & PM COMPUTATION ----
+        const amMinutes = calculateSession(
+            r.arrival_am,
+            r.departure_am,
+            AM_START,
+            AM_END
+        );
+
+        const pmMinutes = calculateSession(
+            r.arrival_pm,
+            r.departure_pm,
+            PM_START,
+            PM_END
+        );
+
+        const totalMinutes = amMinutes + pmMinutes;
+        totalMonthMinutes += totalMinutes;
+
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalMins  = totalMinutes % 60;
+
+        const isWeekend = d.weekday === 'Sat' || d.weekday === 'Sun';
+
+        const arrivalAMDisplay = r.arrival_am ? r.arrival_am.slice(0,5) : '';
+        const departureAMDisplay = r.departure_am ? r.departure_am.slice(0,5) : '';
+        const arrivalPMDisplay = r.arrival_pm ? r.arrival_pm.slice(0,5) : '';
+        const departurePMDisplay = r.departure_pm ? r.departure_pm.slice(0,5) : '';
+
+        if (isWeekend) {
+            html += `
+            <tr>
+                <td class="border border-dark text-start">
+                    ${('0'+d.dayNumber).slice(-2)} | ${d.weekday}
+                </td>
+                <td class="border border-dark text-center" colspan="4">WEEKEND</td>
+                <td class="border border-dark text-center">${totalHours}</td>
+                <td class="border border-dark text-center">${totalMins}</td>
+            </tr>`;
+        } else {
+            html += `
+            <tr>
+                <td class="border border-dark text-start">
+                    ${('0'+d.dayNumber).slice(-2)} | ${d.weekday}
+                </td>
+                <td class="border border-dark text-center">${arrivalAMDisplay}</td>
+                <td class="border border-dark text-center">${departureAMDisplay}</td>
+                <td class="border border-dark text-center">${arrivalPMDisplay}</td>
+                <td class="border border-dark text-center">${departurePMDisplay}</td>
+                <td class="border border-dark text-center">${totalHours}</td>
+                <td class="border border-dark text-center">${totalMins}</td>
+            </tr>`;
+        }
+    });
+
+    const monthTotalHours = Math.floor(totalMonthMinutes / 60);
+    const monthTotalMins  = totalMonthMinutes % 60;
+
+    html += `
+    <tr class="fw-bold bg-light">
+        <td class="border border-dark text-end" colspan="5">TOTAL</td>
+        <td class="border border-dark text-center">${monthTotalHours}</td>
+        <td class="border border-dark text-center">${monthTotalMins}</td>
+    </tr>`;
+
+    return html;
+}
+
+// =======================
+// LOAD DTR BUTTON
+// =======================
+$('#btn_load_dtr').on('click', function () {
+
+    const employee_id = $('#employee_id').val().trim();
+    const year = parseInt($('#select_employee_dtr_year').val());
+    const month = parseInt($('#select_employee_dtr_month').val());
+
+    if (!employee_id || !year || !month) {
+        alert('Please select Employee ID, Year, and Month');
+        return;
+    }
+
+    $.ajax({
+        url: APP_API_ENDPOINT + '/api/employee-dtr',
+        type: 'POST',
+        dataType: 'json',
+        data: { employee_id, year, month },
+
+        success: function(res) {
+
+            if (!res.success || !res.dtr || !res.dataInfoS) {
+                alert('No data found');
+                return;
+            }
+
+            const emp = res.dataInfoS;
+
+            // EMPLOYEE INFO
+            $('.ff_idno1, .ff_idno2').text(employee_id);
+            $('.ff_name').text(
+                `${emp.employee.title_prefix == 'N/A' ? '' : emp.employee.title_prefix}
+                 ${emp.employee.firstname}
+                 ${emp.employee.middlename != 'N/A' ? emp.employee.middlename[0]+'.' : ''}
+                 ${emp.employee.lastname}
+                 ${emp.employee.suffix == 'N/A' ? '' : emp.employee.suffix}`.trim()
+            );
+
+            // OFFICE
+            const officeParts = emp.department.office.split(' / ');
+            $('.office_name_1').text(officeParts[1]);
+
+            // SUPERVISOR
+            $('.office_headx').text(
+                `${emp.supervisor.title_prefix == 'N/A' ? '' : emp.supervisor.title_prefix}
+                 ${emp.supervisor.firstname}
+                 ${emp.supervisor.middlename != 'N/A' ? emp.supervisor.middlename[0]+'.' : ''}
+                 ${emp.supervisor.lastname}
+                 ${emp.supervisor.suffix == 'N/A' ? '' : emp.supervisor.suffix}`.trim()
+            );
+
+            // MONTH HEADER
+            const monthName = $('#select_employee_dtr_month option:selected').text();
+            $('#dtr_month_year_1, #dtr_month_year_2').text(`${monthName} ${year}`);
+
+            // BUILD TABLE
+            const allDays = getDaysInMonth(year, month);
+            const dtrMap = {};
+            res.dtr.forEach(r => dtrMap[r.day] = r);
+
+            const tableHtml = buildTableHtml(allDays, dtrMap);
+            $('.dtr_table_body_double').html(tableHtml);
+        },
+
+        error: function(xhr) {
+            console.error(xhr.responseJSON || xhr);
+            alert('Server error');
+        }
+    });
+});
+});
+</script>
