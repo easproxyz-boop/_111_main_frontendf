@@ -1,5 +1,5 @@
 <style>
-#table_employee_leave_credits_FFQ999 thead tr {
+#table_employee_leave_credits_FFQ999 thead {
   position: sticky;
   top: 80px;        /* height ng navbar (adjust kung mas mataas) */
   z-index: 3;
@@ -54,30 +54,56 @@
   <div class="card-body">
     
 
-<table id="table_employee_leave_credits_FFQ999" class=" table-bordered table-striped text-nowrap">
+<table id="table_employee_leave_credits_FFQ999" class="table-bordered table-striped table-hovered text-nowrap">
   <thead class="table-primary">
     <tr>
-      <th>Date</th>
-      <th>-</th>
-      <th>AM Login</th>
-      <th>AM Logout</th>
-      <th>PM Login</th>
-      <th>PM Logout</th>
-      <th>AM Hours</th>
-      <th>PM Hours</th>
-      <th>Total Hours</th>
-      <th>Earned VL</th>
-      <th>Earned SL</th>
+      <th class="text-center" rowspan="3">Date <br> (YYYY-MM-DD) </th>
+      <th class="text-center" rowspan="3">-</th>
+      <th class="text-center bg-warning text-white" colspan="9">DAILY TIME RECORD (DTR)</th>
+      <th class="text-center">-</th>
+      <th class="text-center bg-success text-white" colspan="3">SALARY</th>
+      <th class="text-center" colspan="4">LEAVE CREDITS</th>
+    </tr>
+    <tr>
+
+      <th class="text-center" colspan="3">AM</th>
+      <th class="text-center" colspan="3">PM</th>
+      <th class="text-center">TOTAL</th>
+      <th class="text-center" colspan="2">UNDERTIME</th> 
+      <th class="text-center" rowspan="2">Status</th>
+      <th class="text-center" rowspan="2">Daily rate <br> of pay</th>
+      <th class="text-center" rowspan="2">Amount <br> Deducted</th>
+      <th class="text-center" rowspan="2">Net <br> Balance</th>
+
+      <th class="text-center" colspan="2">Leave without pay</th>
+      <th class="text-center" colspan="2">Leave with pay </th>
+
+
+    </tr>
+    <tr>
+      <th>Arrival</th>
+      <th>Departure</th>
+      <th>Total</th>
+      <th>Arrival</th>
+      <th>Departure</th>
+      <th>Total</th>
+      <th>AM & PM</th>
+      <th>Hours</th> 
+      <th>Minutes</th> 
+      <th>VL</th>
+      <th>SL</th>
+      <th>VL</th>
+      <th>SL</th>
     </tr>
   </thead>
-  <tfoot class="table-secondary">
+  <tfoot class="table-secondary text-danger">
     <tr>
-      <th colspan="6" style="text-align:right">TOTAL:</th>
-      <th id="total_am_hours"></th>
-      <th id="total_pm_hours"></th>
-      <th id="total_hours"></th>
-      <th id="total_earned_vl"></th>
-      <th id="total_earned_sl"></th>
+      <th colspan="8" style="text-align:right">TOTAL:</th>
+      <th id="total_am_pm_x"></th>
+      <th id="total_undertime_hours"></th>
+      <th id="total_undertime_minutes"></th>
+      <th></th>
+      <th colspan="7"></th>
     </tr>
   </tfoot>
   <tbody></tbody>
@@ -101,10 +127,19 @@ $(document).ready(function() {
         d.employee_id = $('#select_employee_leave_credits_employee_id').val();
         d.year = $('#select_employee_leave_credits_year').val();
         d.month = $('#select_employee_leave_credits_month').val();
+      },
+      dataSrc: function(json) {
+        // Use backend totals for footer
+        if (json.totals) {
+          $('#total_am_pm_x').html(json.totals.am_pm_total);
+          $('#total_undertime_hours').html(json.totals.undertime_hours);
+          $('#total_undertime_minutes').html(json.totals.undertime_minutes);
+        }
+        return json.data;
       }
     },
     columns: [
-      {
+      { 
         data: null,
         render: function (data, type, row) {
           return row.date + ' | ' + row.weekday_status;
@@ -112,39 +147,35 @@ $(document).ready(function() {
       },
       { 
         data: 'weekend_status',
-        render: function (data, type, row) {
-          let ssS = row.weekend_status === 'WEEKEND' ? 'text-danger' : '';
-          return `<span class="${ssS}">${row.weekend_status}</span>`;
+        render: function(data, type, row) {
+          return row.weekend_status === 'WEEKEND'
+                 ? `<span class="text-danger">${row.weekend_status}</span>`
+                 : '';
         }
       },
       { data: 'am_login' },
       { data: 'am_logout' },
+      { data: 'am_total_login_and_logout_hrs_and_minutes'},
       { data: 'pm_login' },
       { data: 'pm_logout' },
-      { data: 'am_hours' },
-      { data: 'pm_hours' },
-      { data: 'total_hours' },
-      { data: 'earned_vl' },
-      { data: 'earned_sl' }
+      { data: 'pm_total_login_and_logout_hrs_and_minutes'},
+      { data: 'am_pm_total_hours_and_minutes' },
+
+      { data: 'undertime_hours' },
+      { data: 'undertime_minutes' },
+      { data: 'status_application' }, // example for application for leave cause it has 4hrs above late, and no penalty etc
+
+      { data: 'dailyratepay' },
+      { data: 'dailyratepay_deducted' },
+      { data: 'dailyratepay' },
+      { data: 'dailyratepay' },
+      { data: 'dailyratepay' },
+      { data: 'dailyratepay' },
+      { data: 'dailyratepay' },
+
     ],
     pageLength: 31,
-    lengthMenu: [31, 50, 100],
-    footerCallback: function (row, data, start, end, display) {
-      let api = this.api();
-
-      const sumColumn = (colIndex) => 
-        api
-          .column(colIndex, { page: 'current' })
-          .data()
-          .reduce((a, b) => a + parseFloat(b || 0), 0)
-          .toFixed(2);
-
-      $('#total_am_hours').html(sumColumn(6));
-      $('#total_pm_hours').html(sumColumn(7));
-      $('#total_hours').html(sumColumn(8));
-      $('#total_earned_vl').html(sumColumn(9));
-      $('#total_earned_sl').html(sumColumn(10));
-    }
+    lengthMenu: [31, 50, 100]
   });
 
   $('#btn_load_leave_credits').on('click', function() {
@@ -152,4 +183,3 @@ $(document).ready(function() {
   });
 });
 </script>
-
